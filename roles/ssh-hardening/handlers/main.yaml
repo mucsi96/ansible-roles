@@ -1,0 +1,9 @@
+- name: Restart sshd
+  become: true
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+- name: Reload UFW
+  become: true
+  community.general.ufw:
+    state: enabled

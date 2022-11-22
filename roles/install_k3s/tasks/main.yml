@@ -1,0 +1,72 @@
+- name: Check internet connection
+  ansible.builtin.uri:
+    url: "https://ubuntu.com"
+  timeout: 3
+- name: Download k3s install script
+  become: true
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: ~/k3s_install.sh
+    mode: a+x
+- name: Execute k3s_install.sh
+  become: true
+  ansible.builtin.shell: ./k3s_install.sh >> ./k3s_install_log.txt
+  args:
+    chdir: "~"
+    creates: k3s_install_log.txt
+  environment:
+    INSTALL_K3S_VERSION: "{{ k3s_version }}"
+- name: Load k3s config
+  become: true
+  ansible.builtin.slurp:
+    src: /etc/rancher/k3s/k3s.yaml
+  register: kube_config
+- name: Parse k3s config
+  ansible.builtin.set_fact:
+    kube_config: "{{ kube_config.content | b64decode | from_yaml }}"
+
+- name: Create local kubernetes config folder
+  ansible.builtin.file:
+    path: "{{ local_kube_config | dirname }}"
+    state: directory
+    mode: 0770
+  delegate_to: 127.0.0.1
+  when: local_kube_config
+- name: Create local kubernetes config
+  ansible.builtin.copy:
+    dest: "{{ local_kube_config }}"
+    content: "{{ lookup('ansible.builtin.template', 'kube-config.yml') }}"
+    mode: 0660
+  vars:
+    certificate_authority_data: "{{ kube_config.clusters.0.cluster['certificate-authority-data'] }}"
+    client_certificate_data: "{{ kube_config.users.0.user['client-certificate-data'] }}"
+    client_key_data: "{{ kube_config.users.0.user['client-key-data'] }}"
+    host: "{{ inventory_hostname }}"
+  delegate_to: 127.0.0.1
+  when: local_kube_config
+
+- name: Create remote kubernetes config folder
+  ansible.builtin.file:
+    path: ~/.kube
+    state: directory
+    mode: 0770
+- name: Create remote kubernetes config
+  ansible.builtin.copy:
+    dest: ~/.kube/config
+    content: "{{ lookup('ansible.builtin.template', 'kube-config.yml') }}"
+    mode: 0660
+  vars:
+    certificate_authority_data: "{{ kube_config.clusters.0.cluster['certificate-authority-data'] }}"
+    client_certificate_data: "{{ kube_config.users.0.user['client-certificate-data'] }}"
+    client_key_data: "{{ kube_config.users.0.user['client-key-data'] }}"
+    host: 127.0.0.1
+
+- name: Install pip3
+  become: true
+  ansible.builtin.apt:
+    name: python3-pip
+    state: present
+- name: Install kubernetes client
+  ansible.builtin.pip:
+    name:
+      - kubernetes == {{ kubernetes_client_version }}

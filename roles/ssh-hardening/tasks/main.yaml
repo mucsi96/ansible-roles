@@ -1,0 +1,74 @@
+- name: Change root password
+  become: true
+  ansible.builtin.user:
+    name: root
+    state: present
+    password: "{{ new_root_password | password_hash('sha512', 65534 | random(seed=inventory_hostname) | string) }}"
+  vars:
+    new_root_password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) }}"
+- name: Change SSH port
+  become: true
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#?Port"
+    line: "Port {{ ssh_port }}"
+  notify: "Restart sshd"
+- name: Disable SSH root login
+  become: true
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin no"
+  notify:
+    - Restart sshd
+- name: Disable passwd login
+  become: true
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication"
+    line: "PasswordAuthentication no"
+  notify:
+    - Restart sshd
+
+- name: Disable incomming traffic by default
+  become: true
+  community.general.ufw:
+    default: deny
+    direction: incoming
+  notify: Reload UFW
+- name: Enable outgoing traffic by default
+  become: true
+  community.general.ufw:
+    default: allow
+    direction: outgoing
+  notify: Reload UFW
+- name: Enable SSH port
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: "{{ ssh_port }}"
+    proto: tcp
+    comment: SSH
+  notify: Reload UFW
+- name: Enable HTTP
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: http
+    proto: tcp
+  notify: Reload UFW
+- name: Enable HTTPS
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: https
+    proto: tcp
+  notify: Reload UFW
+- name: Enable Kubernetes port
+  become: true
+  community.general.ufw:
+    rule: allow
+    port: "6443"
+    proto: tcp
+    comment: Kubernetes
+  notify: Reload UFW

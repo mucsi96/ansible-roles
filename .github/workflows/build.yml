@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  local-ansible-deploy:
+    runs-on: macos-12
+    needs: build-client-image
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Python requirements
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Caches/pip
+          key: 1-${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            1-${{ runner.os }}-pip-
+
+      - name: Install Ansible
+        run: brew install hudochenkov/sshpass/sshpass ansible
+
+      - name: Show Ansible version
+        run: ansible-playbook --version
+
+      - name: Show Vagrant version
+        run: vagrant --version
+
+      - name: Run vagrant up
+        run: vagrant up
+
+      - name: Deploy
+        run: ansible-playbook playbooks/enable_root_login.yaml playbooks/new-ssh-user.yaml playbooks/ssh-hardening.yaml playbooks/update-packages.yaml playbooks/deploy-cluster.yaml
