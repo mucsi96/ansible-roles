@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "generic/rocky9"
-  config.vm.define 'rocky9'
+  config.vm.box = "bento/rockylinux-8"
+  config.vm.define 'bento-rockylinux-8'
   config.vm.provider "virtualbox"
 
   config.ssh.insert_key = false

@@ -12,4 +12,4 @@
     line: "PermitRootLogin yes"
     state: present
   notify:
-    - Restart ssh
+    - Restart sshd

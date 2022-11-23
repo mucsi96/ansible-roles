@@ -3,7 +3,12 @@
   ansible.builtin.service:
     name: sshd
     state: restarted
-- name: Reload UFW
+- name: Restart UFW
   become: true
   community.general.ufw:
     state: enabled
+- name: Restart firewalld
+  become: true
+  ansible.builtin.service:
+    name: firewalld
+    state: restarted

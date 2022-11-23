@@ -4,6 +4,6 @@
     - role: ssh-hardening
       vars:
         ssh_port: 53024
-        ansible_user: vagrant
-        ansible_ssh_pass: vagrant
+        ansible_user: root
+        ansible_ssh_pass: "123"
         ansible_port: 22

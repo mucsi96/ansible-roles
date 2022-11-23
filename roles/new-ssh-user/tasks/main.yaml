@@ -29,13 +29,20 @@
     dest: "{{ private_key_file }}.pub"
     mode: 0600
   delegate_to: localhost
+- name: Enable wheel group
+  become: true
+  ansible.builtin.lineinfile:
+    dest: /etc/sudoers
+    regexp: "^#?%wheel"
+    line: "%wheel ALL=(ALL) NOPASSWD:ALL"
+    state: present
 - name: Create deploy user
   become: true
   ansible.builtin.user:
     name: "{{ username }}"
     state: present
     password: "{{ password | password_hash('sha512', 65534 | random(seed=inventory_hostname) | string) }}"
-    groups: sudo
+    groups: wheel
     append: true
   vars:
     password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) }}"

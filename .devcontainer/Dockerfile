@@ -22,7 +22,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends sshpass
 
 ARG USER_HOME=/home/vscode
-ARG WORKSPACE_HOME=/workspaces/ansible-demos
+ARG WORKSPACE_HOME=/workspaces/ansible-roles
 
 ENV ANSIBLE_CONFIG=${WORKSPACE_HOME}/ansible.cfg
 COPY .bashrc ${USER_HOME}

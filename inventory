@@ -1,5 +1,5 @@
 [cluster]
-192.168.56.11
+192.168.56.21
 
 [cluster:vars]
 ansible_user=deploy
