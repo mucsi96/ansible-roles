@@ -1,4 +1,4 @@
 - name: Check internet connection
   ansible.builtin.uri:
     url: "https://google.com"
-  timeout: 3
+  timeout: 30
