@@ -2,16 +2,13 @@
   ansible.builtin.include_role:
     name: check_internet_connection
 
-- name: Install docker for Ubuntu
-  ansible.builtin.import_tasks: install_docker_ubuntu.yaml
-  when: ansible_distribution == 'Ubuntu'
-
-- name: Install docker with DNF
-  ansible.builtin.import_tasks: install_docker_dnf.yaml
-  when: ansible_distribution == 'Rocky'
+- name: Install Docker
+  ansible.builtin.include_role:
+    name: install_docker
 
 - name: Disable swap
-  ansible.builtin.import_tasks: disable_swap.yaml
+  ansible.builtin.include_role:
+    name: disable_swap
 
 - name: Install K3s
   ansible.builtin.import_tasks: install_k3s.yaml

@@ -1,0 +1,7 @@
+- name: Install docker for Ubuntu
+  ansible.builtin.import_tasks: install_docker_ubuntu.yaml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install docker with DNF
+  ansible.builtin.import_tasks: install_docker_dnf.yaml
+  when: ansible_distribution == 'Rocky'
