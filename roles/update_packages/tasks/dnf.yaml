@@ -1,7 +1,3 @@
-- name: Check internet connection
-  ansible.builtin.uri:
-    url: "https://ubuntu.com"
-  timeout: 3
 - name: Upgrade all packages
   become: true
   ansible.builtin.dnf:

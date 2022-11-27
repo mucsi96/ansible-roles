@@ -1,7 +1,7 @@
 - name: SSH hardening
   hosts: cluster
   roles:
-    - role: ssh-hardening
+    - role: ssh_hardening
       vars:
         ssh_port: 53024
         ansible_user: root

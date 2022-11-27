@@ -1,0 +1,28 @@
+- name: Check internet connection
+  ansible.builtin.include_role:
+    name: check_internet_connection
+
+- name: Install docker for Ubuntu
+  ansible.builtin.import_tasks: install_docker_ubuntu.yaml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install docker with DNF
+  ansible.builtin.import_tasks: install_docker_dnf.yaml
+  when: ansible_distribution == 'Rocky'
+
+- name: Disable swap
+  ansible.builtin.import_tasks: disable_swap.yaml
+
+- name: Install K3s
+  ansible.builtin.import_tasks: install_k3s.yaml
+
+- name: Create Kubernetes config
+  ansible.builtin.import_tasks: create_kube_config.yaml
+
+- name: Install Kubernetes client with APT
+  ansible.builtin.import_tasks: install_kube_client_apt.yaml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install Kubernetes client with DNF
+  ansible.builtin.import_tasks: install_kube_client_dnf.yaml
+  when: ansible_distribution == 'Rocky'

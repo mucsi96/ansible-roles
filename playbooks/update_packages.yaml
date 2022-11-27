@@ -1,4 +1,4 @@
 - name: Update packages
   hosts: cluster
   roles:
-    - role: update-packages
+    - role: update_packages

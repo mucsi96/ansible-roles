@@ -1,0 +1,14 @@
+- name: Download k3s install script
+  become: true
+  ansible.builtin.get_url:
+    url: https://get.k3s.io
+    dest: ~/k3s_install.sh
+    mode: a+x
+- name: Execute k3s_install.sh
+  become: true
+  ansible.builtin.shell: ./k3s_install.sh >> ./k3s_install_log.txt
+  args:
+    chdir: "~"
+    creates: k3s_install_log.txt
+  environment:
+    INSTALL_K3S_VERSION: "{{ k3s_version }}"

@@ -1,0 +1,8 @@
+- name: Install Kubenetes
+  hosts: cluster
+  roles:
+    - role: install_kubernetes
+      vars:
+        k3s_version: v1.25.3+k3s1 # https://github.com/k3s-io/k3s/releases
+        local_kube_config: "{{ inventory_dir }}/.kube/config"
+        kubernetes_client_version: 25.3.0 # https://github.com/kubernetes-client/python/releases
