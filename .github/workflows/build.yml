@@ -31,5 +31,5 @@ jobs:
       - name: Run vagrant up
         run: vagrant up
 
-      - name: Deploy
-        run: ansible-playbook playbooks/enable_root_login.yaml playbooks/new-ssh-user.yaml playbooks/ssh-hardening.yaml playbooks/update-packages.yaml playbooks/deploy-cluster.yaml
+      - name: Provision
+        run: ansible-playbook playbooks/enable_root_login.yaml playbooks/new_ssh_user.yaml playbooks/ssh_hardening.yaml playbooks/update_packages.yaml playbooks/install_kubernetes.yaml
