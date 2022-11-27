@@ -8,7 +8,6 @@ on:
 jobs:
   local-ansible-deploy:
     runs-on: macos-12
-    needs: build-client-image
     steps:
       - uses: actions/checkout@v3
 

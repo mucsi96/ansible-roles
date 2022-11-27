@@ -1,6 +1,8 @@
 # ansible-roles
 Reusable Ansible roles
 
+[![CI](https://github.com/mucsi96/ansible-roles/actions/workflows/build.yml/badge.svg)](https://github.com/mucsi96/ansible-roles/actions/workflows/build.yml)
+
 ## Create box
 
 ```bash
