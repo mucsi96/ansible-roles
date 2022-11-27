@@ -1,4 +1,5 @@
-- name: Add Docker GPG key.
+- name: Add Docker GPG key
+  become: true
   ansible.builtin.rpm_key:
     key: https://download.docker.com/linux/centos/gpg
     state: present
