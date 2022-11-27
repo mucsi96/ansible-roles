@@ -11,3 +11,6 @@
 - name: Setup firewalld
   ansible.builtin.import_tasks: firewalld.yaml
   when: ansible_distribution == 'Rocky'
+
+- name: Flush handlers
+  meta: flush_handlers

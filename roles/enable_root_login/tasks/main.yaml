@@ -13,3 +13,5 @@
     state: present
   notify:
     - Restart sshd
+- name: Flush handlers
+  meta: flush_handlers
