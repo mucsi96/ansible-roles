@@ -28,6 +28,9 @@ jobs:
           # python -m pip install --upgrade pip
         run: |
           pip3 install -r requirements.txt
+      
+      - name: Show Ansible version
+        run: ansible --version
 
       - name: Build Docker image
         run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
@@ -50,7 +53,7 @@ jobs:
         run: brew install hudochenkov/sshpass/sshpass ansible
 
       - name: Show Ansible version
-        run: ansible-playbook --version
+        run: ansible --version
 
       - name: Show Vagrant version
         run: vagrant --version
