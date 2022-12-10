@@ -1,7 +1,4 @@
 - name: Log into DockerHub
-  ansible.builtin.shell:
-    cmd: "docker login "
-    chdir: "{{ src }}"
   community.docker.docker_login:
     username: "{{ docker_username | default('') }}"
     password: "{{ docker_password | default('') }}"
