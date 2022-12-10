@@ -1,5 +1,6 @@
 - name: Build Docker image
   hosts: cluster
+  gather_facts: false
   roles:
     - role: build_docker_image
       vars:
