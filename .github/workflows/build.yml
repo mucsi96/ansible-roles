@@ -31,9 +31,13 @@ jobs:
       
       - name: Show Ansible version
         run: ansible --version
+        env:
+          ANSIBLE_PYTHON_INTERPRETER: /usr/local/bin/python
 
       - name: Build Docker image
         run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
+        env:
+          ANSIBLE_PYTHON_INTERPRETER: /usr/local/bin/python
 
   local-ansible-deploy:
     runs-on: macos-12
