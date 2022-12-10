@@ -1,0 +1,17 @@
+- name: Log into DockerHub
+  ansible.builtin.shell:
+    cmd: "docker login "
+    chdir: "{{ src }}"
+  community.docker.docker_login:
+    username: "{{ docker_username | default('') }}"
+    password: "{{ docker_password | default('') }}"
+  delegate_to: localhost
+- name: Build an image and push it to a private repo
+  community.docker.docker_image:
+    build:
+      path: "{{ src }}"
+    name: "{{ image_name }}"
+    tag: "{{ version }}"
+    push: true
+    source: build
+  delegate_to: localhost

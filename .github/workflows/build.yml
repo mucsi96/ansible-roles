@@ -6,8 +6,16 @@ on:
       - main
 
 jobs:
+  build-client-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker image
+        run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
+
   local-ansible-deploy:
     runs-on: macos-12
+    needs: build-client-image
     steps:
       - uses: actions/checkout@v3
 

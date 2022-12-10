@@ -1,0 +1,18 @@
+- name: Get new version based on git tags # yamllint disable-line rule:command-instead-of-shell
+  ansible.builtin.shell:
+    cmd: "{{ lookup('ansible.builtin.file', 'version.sh') }}"
+    chdir: "{{ src }}"
+  environment:
+    TAG_PREFIX: "{{ tag_prefix }}"
+    IGNORE: "{{ ignore | default('') }}"
+  register: versio_output
+  changed_when: false
+  delegate_to: localhost
+- name: Register facts
+  ansible.builtin.set_fact:
+    changed: "{{ versio_output.stdout_lines[0].split('=')[1] | bool }}"
+    version: "{{ versio_output.stdout_lines[1].split('=')[1] }}"
+- name: Print new version
+  ansible.builtin.debug:
+    msg: "Change detected. New version: {{ version }}"
+  when: changed

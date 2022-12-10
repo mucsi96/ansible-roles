@@ -1,0 +1,8 @@
+- name: Build Docker image
+  hosts: cluster
+  roles:
+    - role: build_docker_image
+      vars:
+        src: "{{ inventory_dir }}/src"
+        tag_prefix: "client"
+        image_name: "mucsi96/ansible-roles-client"

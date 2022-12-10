@@ -1,0 +1,5 @@
+- name: Get new version
+  ansible.builtin.import_tasks: get_version.yaml
+- name: Build new image
+  ansible.builtin.import_tasks: build_image.yaml
+  when: changed
