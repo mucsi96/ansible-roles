@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "{{ name }}"
+  namespace: "{{ namespace }}"
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: PathPrefix(`/`)
+      services:
+        - kind: Service
+          name: "{{ name }}"
+          port: http

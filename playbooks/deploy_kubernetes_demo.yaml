@@ -1,0 +1,4 @@
+- name: Deploy Kubernetes demo
+  hosts: cluster
+  roles:
+    - role: deploy_kubernetes_demo
