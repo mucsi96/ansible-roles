@@ -13,14 +13,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
       - name: Build Docker image
         run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
 
@@ -29,14 +21,6 @@ jobs:
     needs: build-client-image
     steps:
       - uses: actions/checkout@v3
-
-      - name: Cache Python requirements
-        uses: actions/cache@v3
-        with:
-          path: ~/Library/Caches/pip
-          key: 1-${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            1-${{ runner.os }}-pip-
 
       - name: Install Ansible
         run: brew install hudochenkov/sshpass/sshpass ansible
