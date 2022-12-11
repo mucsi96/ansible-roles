@@ -1,0 +1,7 @@
+- name: Create Ansible Vault key
+  hosts: cluster
+  gather_facts: false
+  roles:
+    - role: create_vault_key
+      vars:
+        dest: "{{ inventory_dir }}/.ansible/vault_key"

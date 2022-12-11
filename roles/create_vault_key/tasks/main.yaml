@@ -1,0 +1,13 @@
+- name: Create folder
+  ansible.builtin.file:
+    path: "{{ dest | dirname }}"
+    state: directory
+    mode: 0770
+  delegate_to: 127.0.0.1
+
+- name: Create vault file
+  ansible.builtin.copy:
+    dest: "{{ dest }}"
+    content: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_letters,digits,punctuation', seed=inventory_hostname, length=50) }}"
+    mode: 0660
+  delegate_to: 127.0.0.1

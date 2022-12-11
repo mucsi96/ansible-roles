@@ -1,0 +1,8 @@
+- name: Deploy Cloudflare tunnel
+  hosts: cluster
+  vars_files:
+    - ../vars/vault.yaml
+  roles:
+    - role: deploy_cloudflare_tunnel
+      vars:
+        token: "{{ cloudflare_tunnel_token }}"
