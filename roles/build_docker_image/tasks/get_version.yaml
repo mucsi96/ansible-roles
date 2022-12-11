@@ -14,5 +14,5 @@
     version: "{{ versio_output.stdout_lines[1].split('=')[1] }}"
 - name: Print new version
   ansible.builtin.debug:
-    msg: "Change detected. New version: {{ version }}"
+    msg: "Change detected. New version: {{ version }} {{ versio_output.stdout_lines }}"
   when: changed
