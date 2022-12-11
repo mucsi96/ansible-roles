@@ -1,14 +1,19 @@
 - name: Log into DockerHub
   community.docker.docker_login:
-    username: "{{ docker_username | default('') }}"
-    password: "{{ docker_password | default('') }}"
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"
   delegate_to: localhost
-- name: Build an image and push it to a private repo
+- name: Build an image and push it to toDockerHub
   community.docker.docker_image:
     build:
       path: "{{ src }}"
-    name: "{{ image_name }}"
+    name: "{{ image_name }}:latest"
+    source: build
+  delegate_to: localhost
+- name: Build an image and push it to toDockerHub
+  community.docker.docker_image:
+    name: "{{ image_name }}:latest"
     tag: "{{ version }}"
     push: true
-    source: build
+    source: local
   delegate_to: localhost
