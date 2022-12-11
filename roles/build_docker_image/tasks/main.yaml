@@ -1,3 +1,5 @@
+- name: Install requirements
+  ansible.builtin.import_tasks: install_requirements.yaml
 - name: Get new version
   ansible.builtin.import_tasks: get_version.yaml
 - name: Build new image

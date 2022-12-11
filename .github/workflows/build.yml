@@ -11,11 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Set up Python
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: "3.x"
-
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -24,20 +19,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install dependencies
-          # python -m pip install --upgrade pip
-        run: |
-          pip install -r requirements.txt
-      
-      - name: Show Ansible version
-        run: ansible --version
-        env:
-          ANSIBLE_PYTHON_INTERPRETER: /usr/local/bin/python
-
       - name: Build Docker image
         run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
-        env:
-          ANSIBLE_PYTHON_INTERPRETER: /usr/local/bin/python
 
   local-ansible-deploy:
     runs-on: macos-12
