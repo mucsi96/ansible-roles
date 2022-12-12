@@ -18,20 +18,6 @@
     proto: tcp
     comment: SSH
   notify: Restart UFW
-- name: Enable HTTP
-  become: true
-  community.general.ufw:
-    rule: allow
-    port: http
-    proto: tcp
-  notify: Restart UFW
-- name: Enable HTTPS
-  become: true
-  community.general.ufw:
-    rule: allow
-    port: https
-    proto: tcp
-  notify: Restart UFW
 - name: Enable Kubernetes port
   become: true
   community.general.ufw:
