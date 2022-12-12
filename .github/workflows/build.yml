@@ -19,7 +19,7 @@ jobs:
           echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key
 
       - name: Build Docker image
-        run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
+        run: ansible-playbook playbooks/build_docker_image.yaml
 
   local-ansible-deploy:
     runs-on: macos-12
@@ -30,8 +30,7 @@ jobs:
       - name: Get Ansible Vault key
         run: |
           mkdir .ansible
-          echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key
-          
+          echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key 
 
       - name: Install Ansible
         run: brew install hudochenkov/sshpass/sshpass ansible
