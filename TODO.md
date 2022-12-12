@@ -1,2 +1,0 @@
-- put tunnel token in a secret https://artifacthub.io/packages/helm/kylesferrazza/cloudflared?modal=template&template=tunnel-secret.yaml
-- add configmap for config.yaml https://artifacthub.io/packages/helm/kylesferrazza/cloudflared?modal=template&template=cloudflared-configmap.yaml
