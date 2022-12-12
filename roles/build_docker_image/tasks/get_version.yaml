@@ -4,7 +4,7 @@
     chdir: "{{ src }}"
   environment:
     TAG_PREFIX: "{{ tag_prefix }}"
-    IGNORE: "{{ ignore | default('') }}"
+    IGNORE: "{{ ignore }}"
   register: versio_output
   changed_when: false
   delegate_to: localhost
@@ -14,5 +14,5 @@
     version: "{{ versio_output.stdout_lines[1].split('=')[1] }}"
 - name: Print new version
   ansible.builtin.debug:
-    msg: "Change detected. New version: {{ version }} {{ versio_output.stdout_lines }}"
+    msg: "Change detected. New version: {{ version }}"
   when: changed

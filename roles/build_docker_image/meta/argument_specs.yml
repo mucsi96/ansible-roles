@@ -1,0 +1,23 @@
+---
+argument_specs:
+  main:
+    options:
+      src:
+        type: path
+        required: true
+      tag_prefix:
+        type: str
+        required: true
+      image_name:
+        type: str
+        required: true
+      ignore:
+        type: str
+        required: false
+        default: ""
+      docker_username:
+        type: str
+        required: true
+      docker_password:
+        type: str
+        required: true

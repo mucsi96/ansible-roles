@@ -13,26 +13,37 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Get Ansible Vault key
+        run: |
+          mkdir .ansible
+          echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key
+
       - name: Build Docker image
         run: ansible-playbook playbooks/build_docker_image.yaml --extra-vars "docker_username=${{ secrets.DOCKER_USERNAME }} docker_password=${{ secrets.DOCKER_PASSWORD }}"
 
-  # local-ansible-deploy:
-  #   runs-on: macos-12
-  #   needs: build-client-image
-  #   steps:
-  #     - uses: actions/checkout@v3
+  local-ansible-deploy:
+    runs-on: macos-12
+    needs: build-client-image
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Install Ansible
-  #       run: brew install hudochenkov/sshpass/sshpass ansible
+      - name: Get Ansible Vault key
+        run: |
+          mkdir .ansible
+          echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key
+          
 
-  #     - name: Show Ansible version
-  #       run: ansible --version
+      - name: Install Ansible
+        run: brew install hudochenkov/sshpass/sshpass ansible
 
-  #     - name: Show Vagrant version
-  #       run: vagrant --version
+      - name: Show Ansible version
+        run: ansible --version
 
-  #     - name: Run vagrant up
-  #       run: vagrant up
+      - name: Show Vagrant version
+        run: vagrant --version
 
-  #     - name: Provision
-  #       run: ansible-playbook playbooks/enable_root_login.yaml playbooks/new_ssh_user.yaml playbooks/ssh_hardening.yaml playbooks/update_packages.yaml playbooks/install_kubernetes.yaml
+      - name: Run vagrant up
+        run: vagrant up
+
+      - name: Provision
+        run: ansible-playbook playbooks/enable_root_login.yaml playbooks/new_ssh_user.yaml playbooks/ssh_hardening.yaml playbooks/update_packages.yaml playbooks/install_kubernetes.yaml
