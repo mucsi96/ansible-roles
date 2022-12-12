@@ -1,10 +1,4 @@
 ---
 argument_specs:
   main:
-    options:
-      username: 
-        type: str
-        required: true
-      private_key_file:
-        type: path
-        required: true
+    options: {}
