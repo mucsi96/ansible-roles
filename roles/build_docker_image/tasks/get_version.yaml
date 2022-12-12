@@ -4,7 +4,7 @@
     chdir: "{{ src }}"
   environment:
     TAG_PREFIX: "{{ tag_prefix }}"
-    IGNORE: "{{ ignore }}"
+    IGNORE: "{{ ignore | default('') }}"
   register: versio_output
   changed_when: false
   delegate_to: localhost
