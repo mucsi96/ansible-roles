@@ -2,6 +2,12 @@
 argument_specs:
   main:
     options:
-      token:
+      cloudflare_account_tag:
+        type: str
+        required: true
+      cloudflare_tunnel_secret:
+        type: str
+        required: true
+      cloudflare_tunnel_id:
         type: str
         required: true

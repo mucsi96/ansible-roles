@@ -28,6 +28,8 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
     && chmod 700 get_helm.sh \
     && ./get_helm.sh --version v3.10.1
 
+RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i cloudflared-linux-amd64.deb
+
 ARG USER_HOME=/home/vscode
 ARG WORKSPACE_HOME=/workspaces/ansible-roles
 

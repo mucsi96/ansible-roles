@@ -13,9 +13,9 @@
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
-    - deployment.yml
-    - service.yml
-    - ingress-route.yml
+    - deployment.yaml
+    - service.yaml
+    - ingress-route.yaml
   vars:
     name: client
     namespace: ansible-roles

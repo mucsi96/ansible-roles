@@ -9,7 +9,9 @@
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
-    - deployment.yml
+    - config-map.yaml
+    - secret.yaml
+    - deployment.yaml
   vars:
     name: cloudflared
     namespace: cloudflare-tunnel
