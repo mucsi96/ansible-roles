@@ -6,7 +6,16 @@
     line: <port protocol="tcp" port="{{ ssh_port }}"/>
     state: present
   notify: Restart firewalld
+
+- name: Start and set up firewalld
+  become: true
+  ansible.builtin.service:
+    name: firewalld
+    enabled: true
+    state: started
+
 - name: Enable SSH
+  become: true
   ansible.posix.firewalld:
     zone: public
     service: ssh
@@ -14,6 +23,7 @@
     state: enabled
   notify: Restart firewalld
 - name: Kubernetes Api Server
+  become: true
   ansible.posix.firewalld:
     zone: public
     service: kube-apiserver

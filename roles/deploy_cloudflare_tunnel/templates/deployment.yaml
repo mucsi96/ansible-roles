@@ -11,6 +11,9 @@ spec:
     metadata:
       labels:
         app: "{{ name }}"
+      annotations:
+        checksum/secret: "{{ secret_checksum }}"
+        checksum/config-map: "{{ config_map_checksum }}"
     spec:
       containers:
         - name: "{{ name }}"

@@ -11,4 +11,5 @@
   become: true
   ansible.builtin.service:
     name: firewalld
+    enabled: true
     state: restarted
