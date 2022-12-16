@@ -1,0 +1,39 @@
+- name: Set the policy for the INPUT chain to ACCEPT
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    policy: ACCEPT
+    ip_version: "{{ ip_version }}"
+- name: Flush INPUT filter
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    flush: true
+    ip_version: "{{ ip_version }}"
+- name: Allow SSH
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ ssh_port }}"
+    ctstate:
+      - NEW
+      - ESTABLISHED
+    comment: Allow SSH
+    jump: ACCEPT
+    ip_version: "{{ ip_version }}"
+- name: Allow Kubernetes Api Server
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 6443
+    comment: Allow Kubernetes Api Server
+    jump: ACCEPT
+    ip_version: "{{ ip_version }}"
+- name: Set the policy for the INPUT chain to DROP
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    policy: DROP
+    ip_version: "{{ ip_version }}" 

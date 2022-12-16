@@ -36,50 +36,6 @@ vagrant destroy
 
 ## Firewall
 
-Check status
-```bash
-sudo firewall-cmd --state
-```
+https://www.heficed.com/tutorials/vps/how-to-configure-iptables/
 
-Start
-```bash
-sudo systemctl start firewalld
-```
-
-Firewalld enable logging
-
-Find and list the actual LogDenie settings
-```bash
-sudo firewall-cmd --get-log-denied
-```
-
-Change the actual LogDenie settings
-```bash
-sudo firewall-cmd --set-log-denied=all
-```
-
-Verify it:
-```bash
-sudo firewall-cmd --get-log-denied
-```
-
-Log all dropped packets
-```bash
-sudo nano /etc/rsyslog.d/firewalld-droppd.conf
-```
-
-Append the following configuration
-```bash
-:msg,contains,"_DROP" /var/log/firewalld-droppd.log
-:msg,contains,"_REJECT" /var/log/firewalld-droppd.log
-& stop
-```
-
-```bash
-sudo systemctl restart rsyslog.service
-```
-
-Watch log
-```bash
-sudo tail -f /var/log/firewalld-droppd.log
-```
+sudo cat /etc/sysconfig/iptables

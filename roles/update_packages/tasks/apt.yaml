@@ -4,7 +4,7 @@
     update_cache: true
     cache_valid_time: 3600
     force_apt_get: true
-- name: Upgrade all packages
+- name: Upgrade all apt packages
   become: true
   ansible.builtin.apt:
     upgrade: dist

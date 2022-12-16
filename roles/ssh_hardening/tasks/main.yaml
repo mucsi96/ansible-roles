@@ -8,9 +8,13 @@
   ansible.builtin.import_tasks: ufw.yaml
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: Setup firewalld
+- name: Disable firewalld
   ansible.builtin.import_tasks: firewalld.yaml
   when: ansible_distribution == 'Rocky'
 
+- name: Setup iptables
+  ansible.builtin.import_tasks: iptables.yaml
+  when: ansible_distribution == 'Rocky'
+
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
