@@ -10,6 +10,24 @@
     chain: INPUT
     flush: true
     ip_version: "{{ ip_version }}"
+- name: Allow all established and related connections
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    ctstate:
+      - ESTABLISHED
+      - RELATED
+    comment: Allow all established and related connections
+    jump: ACCEPT
+    ip_version: "{{ ip_version }}"
+- name: Allow all connections from localhost to localhost
+  become: true
+  ansible.builtin.iptables:
+    chain: INPUT
+    in_interface: lo
+    comment: Allow all connections from localhost to localhost
+    jump: ACCEPT
+    ip_version: "{{ ip_version }}"
 - name: Allow SSH
   become: true
   ansible.builtin.iptables:

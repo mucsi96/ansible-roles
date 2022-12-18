@@ -23,3 +23,13 @@
 - name: Install Kubernetes client with DNF
   ansible.builtin.import_tasks: install_kube_client_dnf.yaml
   when: ansible_distribution == 'Rocky'
+
+- name: Wait for the Traefik CRD to be created
+  become: true
+  ansible.builtin.shell:
+    cmd: /usr/local/bin/kubectl get crd/ingressroutes.traefik.containo.us
+  register: crd
+  changed_when: false
+  until: crd.rc == 0
+  delay: 1
+  retries: 30
