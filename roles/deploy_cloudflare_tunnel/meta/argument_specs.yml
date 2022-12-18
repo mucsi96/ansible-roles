@@ -11,3 +11,6 @@ argument_specs:
       cloudflare_tunnel_id:
         type: str
         required: true
+      public_hostname:
+        type: str
+        required: true

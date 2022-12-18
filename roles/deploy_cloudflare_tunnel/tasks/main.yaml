@@ -22,3 +22,12 @@
   vars:
     name: cloudflared
     namespace: cloudflare-tunnel
+- name: Test request using public hostname
+  ansible.builtin.uri:
+    url: https://{{ public_hostname }}
+    return_content: true
+  register: this
+  until: this.status == 200
+  retries: 5
+  delay: 1
+  failed_when: "'Hello from Ansible Roles Demo Page 2!' not in this.content"
