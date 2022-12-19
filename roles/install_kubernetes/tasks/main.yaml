@@ -32,5 +32,5 @@
   register: crd
   changed_when: false
   until: crd.rc == 0
-  delay: 10
+  delay: 1
   retries: 30
