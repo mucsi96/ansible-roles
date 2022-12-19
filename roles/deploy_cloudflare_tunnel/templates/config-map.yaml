@@ -7,5 +7,5 @@ data:
   config.yaml: |-
     logDirectory: /var/log/cloudflared
     url: http://traefik.kube-system
-    tunnel: {{ cloudflare_tunnel_id }}
+    tunnel: {{ tunnel_credentials.TunnelID }}
     credentials-file: /etc/cloudflared/credentials.json

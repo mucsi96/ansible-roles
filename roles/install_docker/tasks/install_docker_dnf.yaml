@@ -1,24 +1,15 @@
-- name: Add Docker GPG key
-  become: true
-  ansible.builtin.rpm_key:
-    key: https://download.docker.com/linux/centos/gpg
-    state: present
-- name: Add yum repository for stable version
+- name: Add Docker CE Stable yum repository
   become: true
   ansible.builtin.yum_repository:
-    name: docker
-    description: Docker repository
-    baseurl: https://download.docker.com/linux/centos/8/x86_64/stable
-    state: present
-- name: Install docker and its dependecies
+    name: docker-ce-stable
+    description: Docker CE Stable - {{ ansible_architecture }}
+    baseurl: https://download.docker.com/linux/centos/8/{{ ansible_architecture }}/stable
+    gpgcheck: true
+    gpgkey: https://download.docker.com/linux/centos/gpg
+- name: Install docker
   become: true
   ansible.builtin.dnf:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
+    name: docker-ce
   notify:
     - Start Docker service
 - name: Add user to docker group

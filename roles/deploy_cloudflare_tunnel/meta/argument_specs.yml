@@ -2,15 +2,15 @@
 argument_specs:
   main:
     options:
-      cloudflare_account_tag:
+      cloudflare_cert:
         type: str
         required: true
-      cloudflare_tunnel_secret:
+      public_domainname:
         type: str
         required: true
-      cloudflare_tunnel_id:
+      subdomain:
         type: str
         required: true
-      public_hostname:
+      tunnel_name:
         type: str
         required: true

@@ -5,4 +5,5 @@
   roles:
     - role: deploy_cloudflare_tunnel
       vars:
-        token: "{{ cloudflare_tunnel_token }}"
+        subdomain: ansible-roles-demo
+        tunnel_name: ansible-roles-demo

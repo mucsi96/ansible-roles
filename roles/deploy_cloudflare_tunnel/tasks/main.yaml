@@ -1,27 +1,17 @@
-- name: Create k8s namespace
-  kubernetes.core.k8s:
-    state: present
-    kind: namespace
-    name: cloudflare-tunnel
-- name: Get checksums
+- name: Set public hostname
   ansible.builtin.set_fact:
-    secret_checksum: "{{ lookup('ansible.builtin.template', 'secret.yaml') | checksum }}"
-    config_map_checksum: "{{ lookup('ansible.builtin.template', 'config-map.yaml') | checksum }}"
-  vars:
-    name: cloudflared
-    namespace: cloudflare-tunnel
-- name: Add deployment and service
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('ansible.builtin.template', item) }}"
-    wait: true
-  with_items:
-    - config-map.yaml
-    - secret.yaml
-    - deployment.yaml
-  vars:
-    name: cloudflared
-    namespace: cloudflare-tunnel
+    public_hostname: "{{ subdomain }}.{{ public_domainname }}"
+
+- name: Install cloudflared
+  ansible.builtin.import_tasks: install_cloudflared_dnf.yaml
+  when: ansible_distribution == 'Rocky'
+
+- name: Setup tunnel
+  ansible.builtin.import_tasks: setup_tunnel.yaml
+
+- name: Deploy tunnel client
+  ansible.builtin.import_tasks: deploy_tunnel_client.yaml
+
 - name: Test request using public hostname
   ansible.builtin.uri:
     url: https://{{ public_hostname }}
