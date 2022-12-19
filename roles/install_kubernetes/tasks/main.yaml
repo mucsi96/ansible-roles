@@ -28,6 +28,7 @@
   become: true
   ansible.builtin.shell:
     cmd: kubectl get crd/ingressroutes.traefik.containo.us
+    executable: /bin/bash
   register: crd
   changed_when: false
   until: crd.rc == 0
