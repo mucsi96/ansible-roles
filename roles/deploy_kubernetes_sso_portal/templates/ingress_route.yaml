@@ -8,7 +8,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: PathPrefix(`/ssoauth`)
+      match: PathPrefix(`{{ path }}`)
       services:
         - kind: Service
           name: "{{ name }}"

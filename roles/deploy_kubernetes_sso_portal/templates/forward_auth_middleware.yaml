@@ -5,7 +5,7 @@ metadata:
   namespace: "{{ namespace }}"
 spec:
   forwardAuth:
-    address: http://{{ name }}.{{ namespace }}.svc:9091/api/verify?rd=https://{{ hostname }}/ssoauth/
+    address: http://{{ name }}.{{ namespace }}.svc:{{ port }}/api/verify?rd=https://{{ hostname }}{{ path }}/
     trustForwardHeader: true
     authResponseHeaders:
       - Remote-User

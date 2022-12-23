@@ -1,11 +1,9 @@
 - name: Create secret seeds
   ansible.builtin.set_fact:
-    admin_password_seed: "{{ inventory_hostname }}-admin_password"
     jwt_secret_seed: "{{ inventory_hostname }}-jwt_secret"
     session_secret_seed: "{{ inventory_hostname }}-session_secret"
 - name: Generate secrets
   ansible.builtin.set_fact:
-    admin_password: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_letters,digits length=64', seed=admin_password_seed) }}"
     jwt_secret: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_letters,digits length=64', seed=jwt_secret_seed) }}"
     session_secret: "{{ lookup('ansible.builtin.password', '/dev/null chars=ascii_letters,digits length=64', seed=session_secret_seed) }}"
 - name: Ensure docker deamon is running
@@ -26,26 +24,28 @@
     state: present
     kind: namespace
     name: authelia
-- name: Get checksums
-  ansible.builtin.set_fact:
-    secret_checksum: "{{ lookup('ansible.builtin.template', 'secret.yaml') | checksum }}"
-  vars:
-    name: authelia
-    namespace: authelia
 - name: Add deployment and service
-  kubernetes.core.k8s:
-    state: present
-    definition: "{{ lookup('ansible.builtin.template', item) }}"
-    wait: true
-  with_items:
-    - secret.yaml
-    - deployment.yaml
-    - service.yaml
-    - forward_auth_middleware.yaml
-    - ingress_route.yaml
+  block:
+  - name: Get checksums
+    ansible.builtin.set_fact:
+      secret_checksum: "{{ lookup('ansible.builtin.template', 'secret.yaml') | checksum }}"
+  - name: Apply K8s resources
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('ansible.builtin.template', item) }}"
+      wait: true
+    with_items:
+      - secret.yaml
+      - deployment.yaml
+      - service.yaml
+      - forward_auth_middleware.yaml
+      - ingress_route.yaml
   vars:
     name: authelia
     namespace: authelia
+    port: 9091
+    path: /ssoauth
+    path_no_slash: "{{ path | regex_replace('/') }}"
 - name: Get an existing Service object
   kubernetes.core.k8s_info:
     kind: Service

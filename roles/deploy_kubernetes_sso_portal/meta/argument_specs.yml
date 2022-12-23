@@ -8,3 +8,6 @@ argument_specs:
       auth_middelware_name:
         type: str
         required: true
+      admin_password:
+        type: str
+        required: true

@@ -8,6 +8,6 @@ spec:
     - name: http
       port: 9091
       protocol: TCP
-      targetPort: 9091
+      targetPort: {{ port }}
   selector:
     app: "{{ name }}"
