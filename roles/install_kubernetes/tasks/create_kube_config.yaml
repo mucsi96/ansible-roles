@@ -17,7 +17,7 @@
 - name: Create local kubernetes config
   ansible.builtin.copy:
     dest: "{{ local_kube_config }}"
-    content: "{{ lookup('ansible.builtin.template', 'kube-config.yml') }}"
+    content: "{{ lookup('ansible.builtin.template', 'kube_config.yml') }}"
     mode: 0660
   vars:
     certificate_authority_data: "{{ kube_config.clusters.0.cluster['certificate-authority-data'] }}"
@@ -35,7 +35,7 @@
 - name: Create remote kubernetes config
   ansible.builtin.copy:
     dest: ~/.kube/config
-    content: "{{ lookup('ansible.builtin.template', 'kube-config.yml') }}"
+    content: "{{ lookup('ansible.builtin.template', 'kube_config.yml') }}"
     mode: 0660
   vars:
     certificate_authority_data: "{{ kube_config.clusters.0.cluster['certificate-authority-data'] }}"

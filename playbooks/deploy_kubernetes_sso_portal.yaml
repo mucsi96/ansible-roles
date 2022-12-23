@@ -1,0 +1,10 @@
+- name: Deploy Kubernetes monitoring stack
+  hosts: cluster
+  gather_facts: false
+  vars_files:
+    - ../vars/vault.yaml
+  roles:
+    - role: deploy_kubernetes_sso_portal
+      vars:
+        hostname: ansible-roles-demo.{{ public_domainname }}
+        auth_middelware_name: auth

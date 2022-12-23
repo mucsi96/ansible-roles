@@ -33,3 +33,19 @@
   until: crd.rc == 0
   delay: 3
   retries: 30
+
+- name: Wait for the HelmChartConfig CRD to be created
+  become: true
+  ansible.builtin.command:
+    cmd: /usr/local/bin/kubectl get crd/helmchartconfigs.helm.cattle.io
+  register: crd
+  changed_when: false
+  until: crd.rc == 0
+  delay: 3
+  retries: 30
+
+- name: Configure Traefik
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('ansible.builtin.template', 'traefik_config.yaml') }}"
+    wait: true

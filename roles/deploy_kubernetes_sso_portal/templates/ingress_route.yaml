@@ -8,10 +8,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Path(`/`)
-      middlewares:
-        - name: "{{ auth_middelware_name }}"
-          namespace: "{{ auth_middelware_namespace }}"
+      match: PathPrefix(`/ssoauth`)
       services:
         - kind: Service
           name: "{{ name }}"

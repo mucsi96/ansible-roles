@@ -2,3 +2,6 @@
   hosts: cluster
   roles:
     - role: deploy_kubernetes_demo
+      vars:
+        auth_middelware_name: auth
+        auth_middelware_namespace: authelia

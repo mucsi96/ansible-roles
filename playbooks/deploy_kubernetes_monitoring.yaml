@@ -1,0 +1,5 @@
+- name: Deploy Kubernetes monitoring stack
+  hosts: cluster
+  gather_facts: false
+  roles:
+    - role: deploy_kubenetes_monitoring

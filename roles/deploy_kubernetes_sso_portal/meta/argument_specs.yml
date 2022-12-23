@@ -2,9 +2,9 @@
 argument_specs:
   main:
     options:
-      auth_middelware_name:
+      hostname:
         type: str
         required: true
-      auth_middelware_namespace:
+      auth_middelware_name:
         type: str
         required: true

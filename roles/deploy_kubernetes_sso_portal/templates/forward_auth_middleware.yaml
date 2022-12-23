@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ auth_middelware_name }}"
+  namespace: "{{ namespace }}"
+spec:
+  forwardAuth:
+    address: http://{{ name }}.{{ namespace }}.svc:9091/api/verify?rd=https://{{ hostname }}/ssoauth/
+    trustForwardHeader: true
+    authResponseHeaders:
+      - Remote-User
+      - Remote-Group
+      - Remote-Email

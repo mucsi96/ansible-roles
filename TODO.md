@@ -1,0 +1,2 @@
+- create role for deploying kubernetes-base https://github.com/mucsi96/kubernetes-base
+- Add Authelia SSO https://flicksfix.com/posts/k3s-for-home-server-the-easy-way-pt-1/

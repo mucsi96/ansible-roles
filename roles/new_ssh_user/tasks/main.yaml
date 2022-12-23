@@ -45,7 +45,7 @@
     groups: wheel
     append: true
   vars:
-    password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) }}"
+    password: "{{ lookup('ansible.builtin.password', '/dev/null', seed='{{ inventory_hostname }}-{{ username }}-password') }}"
 - name: Enable SSH key auth
   become: true
   ansible.posix.authorized_key:
