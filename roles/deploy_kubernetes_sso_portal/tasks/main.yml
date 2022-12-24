@@ -12,6 +12,7 @@
     name: docker
     state: started
 - name: Hash admin password
+  become: true
   ansible.builtin.shell:
     cmd: "docker run authelia/authelia:latest authelia crypto hash generate argon2 --password {{ admin_password }}"
   register: this

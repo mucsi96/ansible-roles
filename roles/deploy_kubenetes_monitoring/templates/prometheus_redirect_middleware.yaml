@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ name }}-prometheus-redirect"
+  namespace: "{{ namespace }}"
+spec:
+  redirectRegex:
+    regex: ^(.*)/prometheus(/)?$
+    replacement: https://{{ hostname }}/prometheus/graph

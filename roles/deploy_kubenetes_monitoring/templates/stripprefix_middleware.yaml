@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ name }}-stripprefix"
+  namespace: "{{ namespace }}"
+spec:
+  stripPrefix:
+    prefixes:
+      - /prometheus
+      - /traefik

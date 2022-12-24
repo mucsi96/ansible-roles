@@ -15,11 +15,13 @@
   with_items:
     - deployment.yaml
     - service.yaml
-    - ingress-route.yaml
+    - stripprefix_middleware.yaml
+    - ingress_route.yaml
   vars:
     name: client
     namespace: ansible-roles
     image: mucsi96/ansible-roles-client:latest
+    path: /demo
 - name: Get an existing Service object
   kubernetes.core.k8s_info:
     kind: Service
@@ -31,10 +33,10 @@
     load_balancer_ip: "{{ load_balancer.resources[0].status.loadBalancer.ingress[0].ip }}"
 - name: Test a request to the service.
   ansible.builtin.uri:
-    url: http://{{ load_balancer_ip }}
+    url: http://{{ load_balancer_ip }}/demo
     return_content: true
   register: this
-  until: this.status == 200
+  until: this.status == 401
   retries: 5
   delay: 1
   failed_when: "'Hello from Ansible Roles Demo Page 2!' not in this.content"

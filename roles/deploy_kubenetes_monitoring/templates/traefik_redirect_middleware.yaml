@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ name }}-traefik-redirect"
+  namespace: "{{ namespace }}"
+spec:
+  redirectRegex:
+    regex: ^(.*)/traefik(/)?$
+    replacement: https://{{ hostname }}/traefik/dashboard/

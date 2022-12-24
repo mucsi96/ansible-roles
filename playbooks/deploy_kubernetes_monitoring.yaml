@@ -1,5 +1,11 @@
 - name: Deploy Kubernetes monitoring stack
   hosts: cluster
   gather_facts: false
+  vars_files:
+    - ../vars/vault.yaml
   roles:
     - role: deploy_kubenetes_monitoring
+      vars:
+        hostname: ansible-roles.{{ public_domainname }}
+        auth_middelware_name: auth
+        auth_middelware_namespace: authelia

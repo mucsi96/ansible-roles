@@ -6,5 +6,5 @@
   roles:
     - role: deploy_kubernetes_sso_portal
       vars:
-        hostname: ansible-roles-demo.{{ public_domainname }}
+        hostname: ansible-roles.{{ public_domainname }}
         auth_middelware_name: auth

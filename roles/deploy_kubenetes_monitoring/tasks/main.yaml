@@ -8,8 +8,13 @@
     state: present
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
-  with_items: 
+  with_items:
     - kube_prometheus_stack.yaml
     - loki_stack.yaml
+    - stripprefix_middleware.yaml
+    - traefik_redirect_middleware.yaml
+    - prometheus_redirect_middleware.yaml
+    - ingress_route.yaml
   vars:
+    name: monitoring
     namespace: monitoring

@@ -1,0 +1,37 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-route
+  namespace: "{{ namespace }}"
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: PathPrefix(`/prometheus`)
+      middlewares:
+        - name: "{{ auth_middelware_name }}"
+          namespace: "{{ auth_middelware_namespace }}"
+        - name: "{{ name }}-prometheus-redirect"
+          namespace: "{{ namespace }}"
+        - name: "{{ name }}-stripprefix"
+          namespace: "{{ namespace }}"
+      services:
+        - kind: Service
+          name: kube-prometheus-stack-prometheus
+          namespace: "{{ namespace }}"
+          port: http-web
+    - kind: Rule
+      match: PathPrefix(`/traefik`) || HeadersRegexp(`Referer`, `.*/traefik/.*`)
+      middlewares:
+        - name: "{{ auth_middelware_name }}"
+          namespace: "{{ auth_middelware_namespace }}"
+        - name: "{{ name }}-traefik-redirect"
+          namespace: "{{ namespace }}"
+        - name: "{{ name }}-stripprefix"
+          namespace: "{{ namespace }}"
+      services:
+        - kind: Service
+          name: traefik
+          namespace: kube-system
+          port: traefik

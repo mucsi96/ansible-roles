@@ -8,5 +8,8 @@ spec:
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
+    ports:
+      traefik:
+        expose: true
     additionalArguments:
       - --entryPoints.web.forwardedHeaders.insecure

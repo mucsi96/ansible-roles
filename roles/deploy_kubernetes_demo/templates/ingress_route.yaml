@@ -8,10 +8,12 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: Path(`/`)
+      match: Path(`{{ path }}`)
       middlewares:
         - name: "{{ auth_middelware_name }}"
           namespace: "{{ auth_middelware_namespace }}"
+        - name: "{{ name }}-stripprefix"
+          namespace: "{{ namespace }}"
       services:
         - kind: Service
           name: "{{ name }}"
