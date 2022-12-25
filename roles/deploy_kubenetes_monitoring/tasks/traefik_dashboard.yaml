@@ -1,0 +1,11 @@
+- name: Deploy Traefik dashboard resources
+  kubernetes.core.k8s:
+    definition: "{{ lookup('ansible.builtin.template', item) }}"
+    wait: true
+  with_items:
+    - traefik_redirect_middleware.yaml
+    - traefik_stripprefix_middleware.yaml
+    - traefik_route.yaml
+  vars:
+    name: monitoring
+    namespace: monitoring

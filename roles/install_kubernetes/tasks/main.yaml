@@ -13,6 +13,9 @@
 - name: Install K3s
   ansible.builtin.import_tasks: install_k3s.yaml
 
+- name: Install Helm
+  ansible.builtin.import_tasks: install_helm.yaml
+
 - name: Create Kubernetes config
   ansible.builtin.import_tasks: create_kube_config.yaml
 

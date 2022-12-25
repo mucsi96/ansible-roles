@@ -1,0 +1,12 @@
+- name: Download helm install script
+  become: true
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: ~/helm_install.sh
+    mode: a+x
+- name: Execute helm_install.sh
+  become: true
+  ansible.builtin.shell: ./helm_install.sh --version {{ helm_version }}
+  args:
+    chdir: "~"
+    creates: helm_install_log.txt

@@ -1,0 +1,21 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-route
+  namespace: "{{ namespace }}"
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: PathPrefix(`/grafana`)
+      middlewares:
+        - name: "{{ auth_middelware_name }}"
+          namespace: "{{ auth_middelware_namespace }}"
+        - name: "{{ name }}-grafana-stripprefix"
+          namespace: "{{ namespace }}"
+      services:
+        - kind: Service
+          name: kube-prometheus-stack-grafana
+          namespace: "{{ namespace }}"
+          port: http-web
