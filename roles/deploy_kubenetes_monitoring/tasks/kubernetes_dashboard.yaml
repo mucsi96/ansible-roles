@@ -1,0 +1,27 @@
+- name: Deploy Kubernetes Dashboard
+  kubernetes.core.helm:
+    name: kubernetes-dashboard
+    chart_repo_url: https://kubernetes.github.io/dashboard
+    chart_ref: kubernetes-dashboard
+    chart_version: 5.10.0
+    wait: true
+    release_namespace: monitoring
+    release_values:
+      metricsScraper:
+        enabled: true
+      protocolHttp: true
+      extraArgs:
+        - --enable-skip-login
+        - --enable-insecure-login
+
+- name: Deploy Kubernetes Dashboard resources
+  kubernetes.core.k8s:
+    definition: "{{ lookup('ansible.builtin.template', item) }}"
+    wait: true
+  with_items:
+    - kubernetes_dashboard_cluster_role_binding.yaml
+    - kubernetes_dashboard_stripprefix_middleware.yaml
+    - kubernetes_dashboard_route.yaml
+  vars:
+    name: monitoring
+    namespace: monitoring

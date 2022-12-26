@@ -1,3 +1,6 @@
+- name: Setup time sync
+  ansible.builtin.include_role:
+    name: setup_time_sync
 - name: Create secret seeds
   ansible.builtin.set_fact:
     jwt_secret_seed: "{{ inventory_hostname }}-jwt_secret"

@@ -12,3 +12,6 @@
 
 - name: Deploy LokiStack
   ansible.builtin.import_tasks: loki_stack.yaml
+
+- name: Deploy Kubernetes Dashboard
+  ansible.builtin.import_tasks: kubernetes_dashboard.yaml
