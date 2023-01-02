@@ -8,10 +8,12 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: PathPrefix(`/dashboard`)
+      match: PathPrefix(`/dashboard`) || HeadersRegexp(`Referer`, `https://{{ hostname }}/dashboard`) || HeadersRegexp(`Referer`, `https://{{ hostname }}/styles.243e6d874431c8e8.css`)
       middlewares:
         - name: "{{ auth_middelware_name }}"
           namespace: "{{ auth_middelware_namespace }}"
+        - name: "{{ name }}-kubernetes-dashboard-redirect"
+          namespace: "{{ namespace }}"
         - name: "{{ name }}-kubernetes-dashboard-stripprefix"
           namespace: "{{ namespace }}"
       services:

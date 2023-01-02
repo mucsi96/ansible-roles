@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: "{{ name }}-kubernetes-dashboard-redirect"
+  namespace: "{{ namespace }}"
+spec:
+  redirectRegex:
+    regex: ^(.*)/dashboard$
+    replacement: https://{{ hostname }}/dashboard/#/pod?namespace=_all
