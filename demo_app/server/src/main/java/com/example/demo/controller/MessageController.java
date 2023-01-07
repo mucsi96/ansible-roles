@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.MessageConfig;
 import com.example.demo.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
