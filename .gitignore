@@ -2,3 +2,6 @@
 .ssh/
 .kube/
 .ansible/
+
+### dot env ###
+.env

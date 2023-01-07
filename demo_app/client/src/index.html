@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Demo</title>
+</head>
+<body></body>
+<script>
+    async function loadMessage() {
+        const response = await fetch('/api/message');
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
+        const message = await response.text();
+        return message;
+    }
+
+    loadMessage()
+        .then(message => document.body.innerText = message)
+        .catch(error => document.body.innerText = error.message)
+</script>
+</html>

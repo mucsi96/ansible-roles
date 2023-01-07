@@ -1,0 +1,21 @@
+- name: Build Docker images
+  hosts: cluster
+  gather_facts: false
+  vars_files:
+    - ../vars/vault.yaml
+  roles:
+    - role: build_docker_image
+      vars:
+        src: "{{ inventory_dir }}/demo_app/client/src"
+        tag_prefix: "demo-app-client"
+        image_name: "mucsi96/ansible-roles-demo-app-client"
+    - role: build_docker_image
+      vars:
+        src: "{{ inventory_dir }}/demo_app/server/src"
+        tag_prefix: "demo-app-server"
+        image_name: "mucsi96/ansible-roles-demo-app-server"
+    - role: build_docker_image
+      vars:
+        src: "{{ inventory_dir }}/spring-boot-admin/src"
+        tag_prefix: "spring-boot-admin"
+        image_name: "mucsi96/ansible-roles-spring-boot-admin"

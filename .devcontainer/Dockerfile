@@ -3,6 +3,10 @@
 ARG VARIANT=3-bullseye
 FROM mcr.microsoft.com/devcontainers/python:0-${VARIANT}
 
+ARG USERNAME=vscode
+ARG USER_HOME=/home/${USERNAME}
+ARG WORKSPACE_HOME=/workspaces/ansible-roles
+
 # [Optional] Allow the vscode user to pip install globally w/o sudo
 ENV PIP_TARGET=/usr/local/pip-global
 ENV PYTHONPATH=${PIP_TARGET}:${PYTHONPATH}
@@ -21,17 +25,31 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requ
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends sshpass
 
+# Apt cleanup
+RUN apt-get autoremove -y; \
+    apt-get clean -y; \
+    rm -rf /var/lib/apt/lists/*
+
+# Install kubectl
 RUN curl -sSL -o /usr/local/bin/kubectl https://dl.k8s.io/release/v1.25.3/bin/linux/amd64/kubectl \
     && chmod 0755 /usr/local/bin/kubectl
 
+# Install Helm
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 \
     && chmod 700 get_helm.sh \
     && ./get_helm.sh --version v3.10.1
 
+# Install cloudflared
 RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i cloudflared-linux-amd64.deb
 
-ARG USER_HOME=/home/vscode
-ARG WORKSPACE_HOME=/workspaces/ansible-roles
+# Install Java
+ARG JAVA_VERSION=11.0.17-tem
+RUN su ${USERNAME} --command \
+    'curl -s "https://get.sdkman.io" | bash \
+    && source "${HOME}/.sdkman/bin/sdkman-init.sh" \
+    && sdk install java "${JAVA_VERSION}" \
+    && sdk flush archives \
+    && sdk flush temp'
 
 ENV ANSIBLE_CONFIG=${WORKSPACE_HOME}/ansible.cfg
 ENV KUBECONFIG=${WORKSPACE_HOME}/.kube/config

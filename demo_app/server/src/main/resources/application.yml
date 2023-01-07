@@ -1,0 +1,38 @@
+app:
+  message: ${env.MESSAGE}
+server:
+  shutdown: graceful
+management:
+  server:
+    port: ${env.MANAGEMENT_SERVER_PORT}
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    probes:
+      enabled: true
+spring:
+  datasource:
+    url: jdbc:postgresql://${env.POSTGRES_HOSTNAME}:${env.POSTGRES_PORT}/${env.POSTGRES_DB}
+    username: ${env.POSTGRES_USER}
+    password: ${env.POSTGRES_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  boot:
+    admin:
+      client:
+        url: http://${env.ADMIN_SERVER_HOST}:${env.ADMIN_SERVER_PORT}
+        instance:
+          name: spring-boot-demo
+          service-base-url: http://${env.K8S_POD_IP}:8080
+          management-base-url: http://${env.K8S_POD_IP}:${env.MANAGEMENT_SERVER_PORT}
+        auto-deregistration: true
