@@ -6,7 +6,7 @@
 - name: Build an image and push it to DockerHub
   community.docker.docker_image:
     build:
-      path: "{{ src }}"
+      path: "{{ docker_context_path }}"
     name: "{{ image_name }}"
     tag: latest
     push: true

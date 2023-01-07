@@ -5,6 +5,9 @@ argument_specs:
       src:
         type: path
         required: true
+      docker_context_path:
+        type: path
+        required: true
       tag_prefix:
         type: str
         required: true
