@@ -15,9 +15,10 @@ argument_specs:
         type: str
         required: true
       ignore:
-        type: str
+        type: list
+        elements: str
         required: false
-        default: ""
+        default: []
       docker_username:
         type: str
         required: true

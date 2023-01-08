@@ -1,7 +1,18 @@
-- name: Install requirements
-  ansible.builtin.import_tasks: install_requirements.yaml
-- name: Get new version
-  ansible.builtin.import_tasks: get_version.yaml
-- name: Build new image
-  ansible.builtin.import_tasks: build_image.yaml
-  when: changed
+# - name: Install requirements
+#   ansible.builtin.import_tasks: install_requirements.yaml
+# - name: Get new version
+#   ansible.builtin.import_tasks: get_version.yaml
+# - name: Build new image
+#   ansible.builtin.import_tasks: build_image.yaml
+#   when: changed
+- name: Get new version for {{ tag_prefix }}
+  get_version:
+    src: "{{ src }}"
+    tag_prefix: "{{ tag_prefix }}"
+    ignore: "{{ ignore | default(omit) }}"
+  delegate_to: localhost
+  register: version_result
+- name: Print new version for {{ tag_prefix }}
+  ansible.builtin.debug:
+    msg: "Change detected. New version: {{ version_result.version }}"
+  when: version_result.changed
