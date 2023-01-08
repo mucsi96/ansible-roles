@@ -70,3 +70,4 @@ jobs:
                 playbooks/deploy_cloudflare_tunnel.yaml \
                 playbooks/deploy_kubernetes_monitoring.yaml \
                 playbooks/deploy_kubernetes_demo.yaml
+                --extra-vars ci=true

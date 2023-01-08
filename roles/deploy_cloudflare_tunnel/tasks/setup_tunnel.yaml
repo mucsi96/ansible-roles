@@ -18,7 +18,7 @@
     content: "{{ cloudflare_cert }}"
     mode: 0660
   when: tunnel_credentials == ''
-- name: Create tunnel
+- name: Create tunnel with name {{ tunnel_name }}
   ansible.builtin.shell:
     cmd: cloudflared tunnel create {{ tunnel_name }}
   when: tunnel_credentials == ''
