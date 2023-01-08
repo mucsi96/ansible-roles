@@ -5,7 +5,7 @@
     ignore: "{{ ignore | default(omit) }}"
   delegate_to: localhost
   register: version_result
-- name: Register facts
+- name: Register facts. Changed> {{changed}}. Version> {{version}}
   ansible.builtin.set_fact:
     changed: "{{ version_result.changed }}"
     version: "{{ version_result.version }}"

@@ -1,4 +1,4 @@
-- name: Set new version for {{ tag_prefix }}
+- name: Set new version for {{ tag_prefix }} to {{ version }}
   set_version:
     tag_prefix: "{{ tag_prefix }}"
     version: "{{ version }}"
