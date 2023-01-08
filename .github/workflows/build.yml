@@ -32,8 +32,19 @@ jobs:
           mkdir .ansible
           echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key 
 
-      - name: Install Ansible
-        run: brew install hudochenkov/sshpass/sshpass ansible helm
+      - name: Install sshpass # https://sourceforge.net/projects/sshpass/files/sshpass/
+        run: |
+          curl --location --output sshpass.tar.gz https://sourceforge.net/projects/sshpass/files/sshpass/1.09/sshpass-1.09.tar.gz
+          tar xvzf sshpass.tar.gz
+          cd sshpass/
+          ./configure
+          sudo make install
+
+      - name: Install Ansible # https://github.com/Homebrew/homebrew-core/blob/master/Formula/ansible.rb
+        run: brew https://raw.githubusercontent.com/Homebrew/homebrew-core/7c2bd86e501d139eeb07a56f89e8a500da6295b3/Formula/ansible.rb
+
+      - name: Install Helm # https://github.com/Homebrew/homebrew-core/blob/master/Formula/helm.rb
+        run: brew https://raw.githubusercontent.com/Homebrew/homebrew-core/eea2936ba2d5391a6d2834b40733fa6188e5d937/Formula/helm.rb
 
       - name: Show Ansible version
         run: ansible --version
