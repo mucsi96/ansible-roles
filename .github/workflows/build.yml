@@ -35,8 +35,8 @@ jobs:
       - name: Install sshpass # https://sourceforge.net/projects/sshpass/files/sshpass/
         run: |
           curl --location --output sshpass.tar.gz https://sourceforge.net/projects/sshpass/files/sshpass/1.09/sshpass-1.09.tar.gz
-          tar xvzf sshpass.tar.gz
-          cd sshpass/
+          tar --extract --verbose --gzip --file sshpass.tar.gz
+          cd sshpass-*/
           ./configure
           sudo make install
 
