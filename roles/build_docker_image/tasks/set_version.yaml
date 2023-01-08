@@ -1,0 +1,5 @@
+- name: Set new version for {{ tag_prefix }}
+  set_version:
+    tag_prefix: "{{ tag_prefix }}"
+    version: "{{ version }}"
+  delegate_to: localhost

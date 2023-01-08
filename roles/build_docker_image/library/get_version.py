@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-"""Get and set source code version using git tags as reference for diff"""
+"""Get source code version using git tags as reference for diff"""
 
 import subprocess
-import re
 from subprocess import STDOUT, CalledProcessError
-
+import re
 from ansible.module_utils.basic import AnsibleModule
 
 
