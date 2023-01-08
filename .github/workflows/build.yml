@@ -33,7 +33,7 @@ jobs:
           echo "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key 
 
       - name: Install Ansible
-        run: brew install hudochenkov/sshpass/sshpass ansible@6.5.0 helm@3.10.1
+        run: brew install hudochenkov/sshpass/sshpass ansible@7.1.0 helm@3.10.3
 
       - name: Show Ansible version
         run: ansible --version
