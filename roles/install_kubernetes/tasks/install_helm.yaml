@@ -6,9 +6,13 @@
     mode: a+x
 - name: Print path
   ansible.builtin.shell: echo "$PATH"
+  register: path_echo
+- name: d
+  ansible.builtin.debug:
+    msg: "{{ path_echo }}"
 - name: Execute helm_install.sh
   become: true
-  ansible.builtin.shell: ./helm_install.sh --version {{ helm_version }}
-  args:
+  ansible.builtin.shell:
+    cmd: ./helm_install.sh --version {{ helm_version }}
     chdir: "~"
     creates: helm_install_log.txt

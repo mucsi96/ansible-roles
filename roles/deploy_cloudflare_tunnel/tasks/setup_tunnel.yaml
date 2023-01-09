@@ -27,7 +27,7 @@
     cmd: cloudflared tunnel route dns --overwrite-dns {{ tunnel_name }} {{ public_hostname }}
   when: tunnel_credentials == ''
 - name: Remove certificates
-  file:
+  ansible.builtin.file:
     path: ~/.cloudflared/cert.pem
     state: absent
 - name: Find new tunnel credentials file
