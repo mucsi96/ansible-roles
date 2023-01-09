@@ -4,7 +4,7 @@
 
 - name: Install cloudflared
   ansible.builtin.import_tasks: install_cloudflared_dnf.yaml
-  when: ansible_distribution == 'Rocky'
+  when: ansible_os_family == 'RedHat'
 
 - name: Setup tunnel
   ansible.builtin.import_tasks: setup_tunnel.yaml

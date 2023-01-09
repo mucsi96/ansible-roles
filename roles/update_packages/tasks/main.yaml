@@ -8,4 +8,4 @@
 
 - name: Update packages with DNF
   ansible.builtin.import_tasks: dnf.yaml
-  when: ansible_distribution == 'Rocky'
+  when: ansible_os_family == 'RedHat'

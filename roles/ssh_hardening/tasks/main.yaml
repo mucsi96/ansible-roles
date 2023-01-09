@@ -17,11 +17,11 @@
 
 - name: Disable firewalld
   ansible.builtin.import_tasks: firewalld.yaml
-  when: ansible_distribution == 'Rocky'
+  when: ansible_os_family == 'RedHat'
 
 - name: Setup iptables
   ansible.builtin.import_tasks: iptables.yaml
-  when: ansible_distribution == 'Rocky'
+  when: ansible_os_family == 'RedHat'
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers

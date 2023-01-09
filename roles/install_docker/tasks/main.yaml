@@ -4,7 +4,7 @@
 
 - name: Install docker with DNF
   ansible.builtin.import_tasks: install_docker_dnf.yaml
-  when: ansible_distribution == 'Rocky'
+  when: ansible_os_family == 'RedHat'
 
 - name: Flush handlers
   meta: flush_handlers

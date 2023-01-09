@@ -13,8 +13,9 @@
 - name: Install K3s
   ansible.builtin.import_tasks: install_k3s.yaml
 
-- name: Install Helm
-  ansible.builtin.import_tasks: install_helm.yaml
+- name: Install Helm with DNF
+  ansible.builtin.import_tasks: install_helm_dnf.yaml
+  when: ansible_os_family == 'RedHat'
 
 - name: Create Kubernetes config
   ansible.builtin.import_tasks: create_kube_config.yaml
@@ -25,7 +26,7 @@
 
 - name: Install Kubernetes client with DNF
   ansible.builtin.import_tasks: install_kube_client_dnf.yaml
-  when: ansible_distribution == 'Rocky'
+  when: ansible_os_family == 'RedHat'
 
 - name: Wait for the Traefik CRD to be created
   become: true
