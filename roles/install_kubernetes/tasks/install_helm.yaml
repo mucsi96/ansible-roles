@@ -4,11 +4,9 @@
     url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
     dest: ~/helm_install.sh
     mode: a+x
-  delegate_to: 127.0.0.1
 - name: Execute helm_install.sh
   become: true
   ansible.builtin.shell: ./helm_install.sh --version {{ helm_version }}
   args:
     chdir: "~"
     creates: helm_install_log.txt
-  delegate_to: 127.0.0.1
