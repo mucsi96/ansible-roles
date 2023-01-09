@@ -5,5 +5,5 @@
   roles:
     - role: deploy_cloudflare_tunnel
       vars:
-        subdomain: "{{ 'ansible-roles' if ci != 'true' else 'ansible-roles-ci' }}"
-        tunnel_name: "{{ 'ansible-roles' if ci != 'true' else 'ansible-roles-ci' }}"
+        subdomain: "{{ subdomain | default('ansible-roles') }}"
+        tunnel_name: "{{ subdomain | default('ansible-roles') }}"

@@ -67,7 +67,6 @@ jobs:
                 playbooks/update_packages.yaml \
                 playbooks/install_kubernetes.yaml \
                 playbooks/deploy_kubernetes_sso_portal.yaml \
-                playbooks/deploy_cloudflare_tunnel.yaml \
+                playbooks/deploy_cloudflare_tunnel.yaml --extra-vars "subdomain=ansible-roles-ci tunnel_name=ansible-roles-ci" \
                 playbooks/deploy_kubernetes_monitoring.yaml \
                 playbooks/deploy_kubernetes_demo.yaml
-                --extra-vars ci=true
