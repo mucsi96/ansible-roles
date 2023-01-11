@@ -1,4 +1,0 @@
-- name: Install Helm from dnf
-  become: true
-  ansible.builtin.dnf:
-    name: helm
