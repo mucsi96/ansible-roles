@@ -9,6 +9,8 @@
   ansible.builtin.package:
     name: snapd
     state: present
+    enablerepo: epel
+  register: snapd
 
 - name: Enable snapd communication socket
   become: true
@@ -24,6 +26,18 @@
     src: /var/lib/snapd/snap
     dest: /snap
     state: link
+
+- name: Restart systemd-udevd 
+  ansible.builtin.service:
+    name: systemd-udevd
+    state: restarted
+  when: snapd.changed
+
+- name: Restart snapd.seeded.service
+  ansible.builtin.service:
+    name: snapd.seeded.service
+    state: restarted
+  when: snapd.changed
 
 - name: ensure have latest of snap
   become: true
