@@ -28,13 +28,15 @@
     state: link
 
 - name: Restart systemd-udevd 
-  ansible.builtin.service:
+  become: true
+  ansible.builtin.systemd:
     name: systemd-udevd
     state: restarted
   when: snapd.changed
 
 - name: Restart snapd.seeded.service
-  ansible.builtin.service:
+  become: true
+  ansible.builtin.systemd:
     name: snapd.seeded.service
     state: restarted
   when: snapd.changed
