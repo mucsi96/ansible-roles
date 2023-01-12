@@ -3,8 +3,9 @@
   gather_facts: false
   vars_files:
     - ../vars/vault.yaml
+    - ../vars/defaults.yaml
   roles:
     - role: deploy_kubernetes_sso_portal
       vars:
-        hostname: ansible-roles.{{ public_domainname }}
+        hostname: "{{ subdomain }}.{{ public_domainname }}"
         auth_middelware_name: auth

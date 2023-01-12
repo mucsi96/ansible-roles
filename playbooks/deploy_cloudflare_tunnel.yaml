@@ -2,8 +2,8 @@
   hosts: cluster
   vars_files:
     - ../vars/vault.yaml
+    - ../vars/defaults.yaml
   roles:
     - role: deploy_cloudflare_tunnel
       vars:
-        subdomain: "{{ subdomain | default('ansible-roles') }}"
-        tunnel_name: "{{ subdomain | default('ansible-roles') }}"
+        tunnel_name: "{{ subdomain }}"
