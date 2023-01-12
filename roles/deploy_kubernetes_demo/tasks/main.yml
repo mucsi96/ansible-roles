@@ -22,21 +22,26 @@
     namespace: ansible-roles
     image: mucsi96/ansible-roles-client:latest
     path: /demo
-- name: Get an existing Service object
-  kubernetes.core.k8s_info:
-    kind: Service
-    name: traefik
-    namespace: kube-system
-  register: load_balancer
-- name: Set load balancer ip
-  ansible.builtin.set_fact:
-    load_balancer_ip: "{{ load_balancer.resources[0].status.loadBalancer.ingress[0].ip }}"
+- name: Authenticate
+  ansible.builtin.uri:
+    url: https://{{ hostname }}/ssoauth/api/firstfactor
+    method: POST
+    body_format: json
+    body:
+      username: "{{ username }}"
+      password: "{{ password }}"
+  register: auth_resp
+  until: auth_resp.status == 200
+  retries: 5
+  delay: 1
 - name: Test a request to the service.
   ansible.builtin.uri:
-    url: http://{{ load_balancer_ip }}/demo
+    url: https://{{ hostname }}/demo
+    headers:
+      Cookie: "{{ auth_resp.cookies_string }}"
     return_content: true
   register: this
-  until: this.status == 401
+  until: this.status == 200
   retries: 5
   delay: 1
   failed_when: "'Hello from Ansible Roles Demo Page 2!' not in this.content"

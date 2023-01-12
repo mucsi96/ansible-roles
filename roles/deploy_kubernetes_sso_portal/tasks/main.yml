@@ -14,15 +14,15 @@
   ansible.builtin.service:
     name: docker
     state: started
-- name: Hash admin password
+- name: Hash user password
   become: true
   ansible.builtin.shell:
-    cmd: "docker run authelia/authelia:latest authelia crypto hash generate argon2 --password {{ admin_password }}"
+    cmd: "docker run authelia/authelia:latest authelia crypto hash generate argon2 --password {{ password }}"
   register: this
   changed_when: false
-- name: Get admin password hash
+- name: Get user password hash
   ansible.builtin.set_fact:
-    admin_password_hash: "{{this.stdout_lines[0] | split(': ') | last }}"
+    password_hash: "{{this.stdout_lines[0] | split(': ') | last }}"
 - name: Create k8s namespace
   kubernetes.core.k8s:
     state: present

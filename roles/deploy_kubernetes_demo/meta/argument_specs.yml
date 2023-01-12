@@ -8,3 +8,9 @@ argument_specs:
       auth_middelware_namespace:
         type: str
         required: true
+      username:
+        type: str
+        required: true
+      password:
+        type: str
+        required: true
