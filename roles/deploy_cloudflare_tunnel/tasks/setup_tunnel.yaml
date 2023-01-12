@@ -1,3 +1,12 @@
+
+- name: Find tunnel credentials file
+  ansible.builtin.find:
+    paths: ~/.cloudflared
+    patterns: "*.json"
+  register: matches
+- name: Get tunnel credentials
+  ansible.builtin.set_fact:
+    tunnel_credentials: "{{ matches.files[0].path if matches.matched > 0 else '' }}"
 - name: Create cloudflared certificate folder
   ansible.builtin.file:
     path: ~/.cloudflared
@@ -17,14 +26,18 @@
 - name: Create fact
   ansible.builtin.set_fact:
     create_tunnel: "{{ tunnel_info.stdout == '' }}"
+- name: Delete tunnel with name "{{ tunnel_name }}"
+  ansible.builtin.shell:
+    cmd: cloudflared tunnel cleanup {{ tunnel_name }} && cloudflared tunnel delete {{ tunnel_name }}
+  when: not create_tunnel and not tunnel_credentials
 - name: Create tunnel with name "{{ tunnel_name }}"
   ansible.builtin.shell:
     cmd: cloudflared tunnel create {{ tunnel_name }}
-  when: create_tunnel
+  when: create_tunnel or not tunnel_credentials
 - name: Setup tunnel DNS entry
   ansible.builtin.shell:
     cmd: cloudflared tunnel route dns --overwrite-dns {{ tunnel_name }} {{ public_hostname }}
-  when: create_tunnel
+  when: create_tunnel or not tunnel_credentials
 - name: Remove certificates
   ansible.builtin.file:
     path: ~/.cloudflared/cert.pem

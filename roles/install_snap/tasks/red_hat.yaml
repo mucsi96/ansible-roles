@@ -1,15 +1,14 @@
 - name: Enable epel-release
   become: true
-  ansible.builtin.dnf:
+  ansible.builtin.package:
     name: epel-release
-    state: latest
+    state: present
 
 - name: Install snapd
   become: true
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: snapd
-    state: latest
-  notify: Reboot
+    state: present
 
 - name: Enable snapd communication socket
   become: true
@@ -17,6 +16,7 @@
     name: snapd.socket
     enabled: true
     state: started
+    daemon_reload: true
 
 - name: Enable classic snap support
   become: true
@@ -24,3 +24,9 @@
     src: /var/lib/snapd/snap
     dest: /snap
     state: link
+
+- name: ensure have latest of snap
+  become: true
+  community.general.snap:
+    name: core
+  notify: refresh snap core
