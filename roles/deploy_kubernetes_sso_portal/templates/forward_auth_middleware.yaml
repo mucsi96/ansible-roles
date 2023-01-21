@@ -1,8 +1,8 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: "{{ auth_middelware_name }}"
-  namespace: "{{ namespace }}"
+  name: {{ auth_middelware_name }}
+  namespace: {{ namespace }}
 spec:
   forwardAuth:
     address: http://{{ name }}.{{ namespace }}.svc:{{ port }}/api/verify?rd=https://{{ hostname }}{{ path }}/

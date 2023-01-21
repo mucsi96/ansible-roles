@@ -4,13 +4,13 @@ clusters:
   - name: cluster
     cluster:
       server: https://{{ host }}:6443
-      certificate-authority-data: "{{ certificate_authority_data }}"
+      certificate-authority-data: {{ certificate_authority_data }}
       insecure-skip-tls-verify: false
 users:
   - name: cluster
     user:
-      client-certificate-data: "{{ client_certificate_data }}"
-      client-key-data: "{{ client_key_data }}"
+      client-certificate-data: {{ client_certificate_data }}
+      client-key-data: {{ client_key_data }}
 contexts:
   - name: cluster
     context:

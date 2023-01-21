@@ -1,22 +1,22 @@
 Kubernetes apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ name }}"
-  namespace: "{{ namespace }}"
+  name: {{ name }}
+  namespace: {{ namespace }}
 spec:
   selector:
     matchLabels:
-      app: "{{ name }}"
+      app: {{ name }}
   template:
     metadata:
       labels:
-        app: "{{ name }}"
+        app: {{ name }}
       annotations:
-        checksum/secret: "{{ secret_checksum }}"
-        checksum/config-map: "{{ config_map_checksum }}"
+        checksum/secret: {{ secret_checksum }}
+        checksum/config-map: {{ config_map_checksum }}
     spec:
       containers:
-        - name: "{{ name }}"
+        - name: {{ name }}
           image: cloudflare/cloudflared:latest
           args:
             - tunnel
@@ -28,8 +28,8 @@ spec:
             - run
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "500m"
+              memory: 128Mi
+              cpu: 500m
           livenessProbe:
             httpGet:
             # Cloudflared has a /ready endpoint which returns 200 if and only if
@@ -52,12 +52,12 @@ spec:
       volumes:
         - name: cloudflared-config
           configMap:
-            name: "{{ name }}"
+            name: {{ name }}
             defaultMode: 420
             optional: false
         - name: cloudflared-credentials
           secret:
-            secretName: "{{ name }}"
+            secretName: {{ name }}
             defaultMode: 420
             optional: false
 

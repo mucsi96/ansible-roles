@@ -1,1 +1,9 @@
 subdomain: ansible-roles
+k8s_namespace: ansible-roles
+auth_middelware_name: auth
+auth_middelware_namespace: authelia
+db_name: ansible-roles
+db_host: postgres
+db_port: 5432
+db_username: "{{ lookup('ansible.builtin.password', '/dev/null length=12 chars=ascii_letters', seed='{{ inventory_hostname }}-db-username') }}"
+db_password: "{{ lookup('ansible.builtin.password', '/dev/null length=20', seed='{{ inventory_hostname }}-db-password') }}"
