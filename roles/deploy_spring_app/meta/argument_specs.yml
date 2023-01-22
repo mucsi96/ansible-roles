@@ -7,22 +7,22 @@ argument_specs:
       k8s_namespace:
         type: str
         required: true
-      db_host:
+      image:
         type: str
         required: true
-      db_port:
+      app_port:
+        type: str
+      app_env:
+        type: dict
+      management_port:
+        type: str
+      admin_server_name:
         type: str
         required: true
-      db_name:
+      admin_server_namespace:
         type: str
         required: true
-      db_username:
-        type: str
+      admin_server_port:
+        type: int
         required: true
-      db_password:
-        type: str
-        required: true
-      db_metrics_port:
-        type: str
-      init_db_sql:
-        type: str
+      

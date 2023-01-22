@@ -6,6 +6,16 @@
     - ../vars/defaults.yaml
   roles:
     - role: deploy_postgres_db
+    - role: deploy_spring_app
+      vars:
+        image: mucsi96/ansible-roles-demo-app-server:1
+        app_env:
+          POSTGRES_DB: "{{ db_name }}"
+          POSTGRES_HOSTNAME: "{{ db_host }}"
+          POSTGRES_PORT: "{{ db_port }}"
+          POSTGRES_USER: "{{ db_username }}"
+          POSTGRES_PASSWORD: "{{ db_password }}"
+          MESSAGE: Hello from Ansible Roles Spring Demo!
     - role: deploy_kubernetes_demo
       vars:
         hostname: "{{ subdomain }}.{{ public_domainname }}"
