@@ -11,9 +11,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ management_port }}
-      targetPort: management
+    - port: {{ spring_actuator_port }}
+      targetPort: actuator
       protocol: TCP
-      name: management
+      name: actuator
   selector:
     app: {{ k8s_name }}

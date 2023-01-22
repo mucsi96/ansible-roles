@@ -27,18 +27,18 @@ spec:
         ports:
         - name: http
           containerPort: 8080
-        - name: management
-          containerPort: {{ management_port }}
+        - name: actuator
+          containerPort: {{ spring_actuator_port }}
         envFrom:
           - secretRef:
               name: {{ k8s_name }}
         env:
-          - name: SPRING_MANAGEMENT_SERVER_PORT
-            value: "{{ management_port }}"
+          - name: SPRING_ACTUATOR_PORT
+            value: "{{ spring_actuator_port }}"
           - name: SPRING_ADMIN_SERVER_HOST
-            value: {{ admin_server_host }}
+            value: {{ spring_admin_server_host }}
           - name: SPRING_ADMIN_SERVER_PORT
-            value: "{{ admin_server_port }}"
+            value: "{{ spring_admin_server_port }}"
           - name: K8S_POD_IP
             valueFrom:
               fieldRef:
@@ -46,12 +46,12 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
-            port: {{ management_port }}
+            port: {{ spring_actuator_port }}
           initialDelaySeconds: 15
         startupProbe:
           httpGet:
             path: /actuator/health/liveness
-            port: {{ management_port }}
+            port: {{ spring_actuator_port }}
           initialDelaySeconds: 15
           failureThreshold: 30
         lifecycle:

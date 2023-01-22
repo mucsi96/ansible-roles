@@ -4,7 +4,7 @@ server:
   shutdown: graceful
 management:
   server:
-    port: ${env.SPRING_MANAGEMENT_SERVER_PORT}
+    port: ${env.SPRING_ACTUATOR_PORT}
   endpoints:
     web:
       exposure:
@@ -34,5 +34,5 @@ spring:
         instance:
           name: spring-boot-demo
           service-base-url: http://${env.K8S_POD_IP}:8080
-          management-base-url: http://${env.K8S_POD_IP}:${env.SPRING_MANAGEMENT_SERVER_PORT}
+          management-base-url: http://${env.K8S_POD_IP}:${env.SPRING_ACTUATOR_PORT}
         auto-deregistration: true

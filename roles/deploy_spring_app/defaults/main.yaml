@@ -1,4 +1,4 @@
-k8s_name: server
-management_port: 8082
-admin_server_host: "{{ admin_server_name }}.{{ admin_server_namespace }}"
+k8s_name: app-server
+spring_actuator_port: 8082
+spring_admin_server_host: "{{ spring_admin_server_name }}.{{ spring_admin_server_namespace }}"
 app_port: 8080

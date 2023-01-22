@@ -14,15 +14,15 @@ argument_specs:
         type: str
       app_env:
         type: dict
-      management_port:
+      spring_actuator_port:
         type: str
-      admin_server_name:
-        type: str
-        required: true
-      admin_server_namespace:
+      spring_admin_server_name:
         type: str
         required: true
-      admin_server_port:
+      spring_admin_server_namespace:
+        type: str
+        required: true
+      spring_admin_server_port:
         type: int
         required: true
       
