@@ -6,7 +6,6 @@
 - name: Get checksums
   ansible.builtin.set_fact:
     secret_checksum: "{{ lookup('ansible.builtin.template', 'secret.yaml') | checksum }}"
-    sql_secret_checksum: "{{ lookup('ansible.builtin.template', 'sql_secret.yaml') | checksum }}"
 - name: Add kubernetes resources
   kubernetes.core.k8s:
     state: present
@@ -14,7 +13,6 @@
     wait: true
   with_items:
     - persistent_volume_claim.yaml
-    - sql_secret.yaml
     - secret.yaml
     - deployment.yaml
     - service.yaml

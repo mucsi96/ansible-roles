@@ -1,3 +1,6 @@
 - create role for deploying kubernetes-base https://github.com/mucsi96/kubernetes-base
-- use random password for SSO
+- create subfolders in monitoring templates
+- add spring adming to monitoring
+- add spring adming to dev container
+- drop dot env in favor of dev container environment
 - change demo to Spring app

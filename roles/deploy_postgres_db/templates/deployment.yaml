@@ -13,7 +13,6 @@ spec:
         app: {{ k8s_name }}
       annotations:
         checksum/secret: {{ secret_checksum }}
-        checksum/sql-secret: {{ sql_secret_checksum }}
     spec:
       containers:
       - name: {{ k8s_name }}
@@ -84,4 +83,9 @@ spec:
           claimName: {{ k8s_name }}
       - name: initdb
         secret:
-          secretName: {{ k8s_name }}-sql-secret
+          secretName: {{ k8s_name }}
+          items:
+            - key: initdb_sql
+              path: initdb.sql
+            - key: grant_sql
+              path: grant.sql
