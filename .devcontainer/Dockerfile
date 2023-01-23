@@ -23,7 +23,7 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requ
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends sshpass
+    && apt-get -y install --no-install-recommends sshpass chromium chromium-driver
 
 # Apt cleanup
 RUN apt-get autoremove -y; \
@@ -53,4 +53,5 @@ RUN su ${USERNAME} --command \
 
 ENV ANSIBLE_CONFIG=${WORKSPACE_HOME}/ansible.cfg
 ENV KUBECONFIG=${WORKSPACE_HOME}/.kube/config
+ENV CHROME_BIN=/usr/bin/chromium
 COPY .bashrc ${USER_HOME}

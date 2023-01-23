@@ -27,26 +27,12 @@
       vars:
         image: mucsi96/ansible-roles-demo-app-client:3
         base_path: /demo
-    - name: Authenticate
-      ansible.builtin.uri:
-        url: https://{{ hostname }}/ssoauth/api/firstfactor
-        method: POST
-        body_format: json
-        body:
-          username: "{{ username }}"
-          password: "{{ password }}"
-      register: auth_resp
-      until: auth_resp.status == 200
-      retries: 5
-      delay: 1
-    - name: Test a request to the service.
-      ansible.builtin.uri:
-        url: https://{{ hostname }}/demo
-        headers:
-          Cookie: "{{ auth_resp.cookies_string }}"
-        return_content: true
-      register: this
-      until: this.status == 200
-      retries: 5
-      delay: 1
-      failed_when: "'Hello from Ansible Roles Spring Demo!' not in this.content"
+    - name: Test
+      ansible.builtin.script:
+        cmd: ../demo_app/test.py
+      environment:
+        HOSTNAME: "{{ hostname }}"
+        USERNAME: "{{ username }}"
+        PASSWORD: "{{ password }}"
+      delegate_to: localhost
+      changed_when: false
