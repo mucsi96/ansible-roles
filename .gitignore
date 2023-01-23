@@ -3,5 +3,7 @@
 .kube/
 .ansible/
 
+__pycache__
+
 ### dot env ###
 .env

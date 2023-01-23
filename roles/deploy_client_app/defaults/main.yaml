@@ -1,0 +1,4 @@
+k8s_name: client-app
+app_port: 80
+nginx_metrics_port: 8085
+app_env: {}

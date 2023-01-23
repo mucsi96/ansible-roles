@@ -6,6 +6,3 @@
     - ../vars/defaults.yaml
   roles:
     - role: deploy_kubernetes_sso_portal
-      vars:
-        hostname: "{{ subdomain }}.{{ public_domainname }}"
-        auth_middelware_name: auth

@@ -69,14 +69,12 @@ spec:
           httpGet:
             path: /
             port: metrics
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
-        readinessProbe:
+          initialDelaySeconds: 15
+        startupProbe:
           httpGet:
             path: /
             port: metrics
-          initialDelaySeconds: 30
-          timeoutSeconds: 10
+          initialDelaySeconds: 5
       volumes:
       - name: ssv
         persistentVolumeClaim:

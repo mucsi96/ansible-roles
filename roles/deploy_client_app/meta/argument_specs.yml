@@ -23,14 +23,3 @@ argument_specs:
       auth_middelware_namespace:
         type: str
         required: true
-      spring_actuator_port:
-        type: str
-      spring_admin_server_name:
-        type: str
-        required: true
-      spring_admin_server_namespace:
-        type: str
-        required: true
-      spring_admin_server_port:
-        type: int
-        required: true

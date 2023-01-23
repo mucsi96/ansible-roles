@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ name }}-stripprefix
-  namespace: {{ namespace }}
+  name: {{ k8s_name }}-stripprefix
+  namespace: {{ k8s_namespace }}
 spec:
   stripPrefix:
     prefixes:
-      - {{ path }}
+      - {{ base_path }}

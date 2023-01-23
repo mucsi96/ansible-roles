@@ -2,6 +2,7 @@ subdomain: ansible-roles
 k8s_namespace: ansible-roles
 auth_middelware_name: auth
 auth_middelware_namespace: authelia
+hostname: "{{ subdomain }}.{{ public_domainname }}"
 db_name: ansible-roles
 db_host: postgres
 db_port: 5432

@@ -9,7 +9,7 @@
 <body></body>
 <script>
     async function loadMessage() {
-        const response = await fetch('/api/message');
+        const response = await fetch(window.location.pathname + '/api/message');
 
         if (!response.ok) {
             throw new Error(`Server error: ${response.status}`);

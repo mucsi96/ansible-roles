@@ -6,7 +6,3 @@
     - ../vars/defaults.yaml
   roles:
     - role: deploy_kubenetes_monitoring
-      vars:
-        hostname: "{{ subdomain }}.{{ public_domainname }}"
-        auth_middelware_name: auth
-        auth_middelware_namespace: authelia
