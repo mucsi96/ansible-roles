@@ -25,7 +25,7 @@
       ansible.builtin.include_role:
         name: deploy_client_app
       vars:
-        image: mucsi96/ansible-roles-demo-app-client:2
+        image: mucsi96/ansible-roles-demo-app-client:3
         base_path: /demo
     - name: Authenticate
       ansible.builtin.uri:
