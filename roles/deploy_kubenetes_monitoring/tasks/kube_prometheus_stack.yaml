@@ -31,9 +31,9 @@
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
-    - prometheus_redirect_middleware.yaml
-    - prometheus_stripprefix_middleware.yaml
-    - prometheus_route.yaml
+    - prometheus/redirect_middleware.yaml
+    - prometheus/stripprefix_middleware.yaml
+    - prometheus/route.yaml
   vars:
     name: monitoring
     namespace: monitoring

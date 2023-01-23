@@ -22,10 +22,10 @@
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
-    - kubernetes_dashboard_cluster_role_binding.yaml
-    - kubernetes_dashboard_stripprefix_middleware.yaml
-    - kubernetes_dashboard_redirect_middleware.yaml
-    - kubernetes_dashboard_route.yaml
+    - kubernetes_dashboard/cluster_role_binding.yaml
+    - kubernetes_dashboard/stripprefix_middleware.yaml
+    - kubernetes_dashboard/redirect_middleware.yaml
+    - kubernetes_dashboard/route.yaml
   vars:
     name: monitoring
     namespace: monitoring

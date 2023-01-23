@@ -20,8 +20,8 @@
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
-    - grafana_stripprefix_middleware.yaml
-    - grafana_route.yaml
+    - grafana/stripprefix_middleware.yaml
+    - grafana/route.yaml
   vars:
     name: monitoring
     namespace: monitoring
