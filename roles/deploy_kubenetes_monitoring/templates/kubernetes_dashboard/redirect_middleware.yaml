@@ -1,8 +1,8 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ name }}-kubernetes-dashboard-redirect
-  namespace: {{ namespace }}
+  name: {{ k8s_name }}-kubernetes-dashboard-redirect
+  namespace: {{ k8s_namespace }}
 spec:
   redirectRegex:
     regex: ^(.*)/dashboard$

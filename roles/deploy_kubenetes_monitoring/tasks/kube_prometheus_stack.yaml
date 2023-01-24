@@ -5,7 +5,7 @@
     chart_ref: kube-prometheus-stack
     chart_version: 40.3.1
     wait: true
-    release_namespace: monitoring
+    release_namespace: "{{ k8s_namespace }}"
     release_values:
       grafana:
         ## Configure additional grafana datasources (passed through tpl)
@@ -26,7 +26,7 @@
             root_url: "https://{{ hostname }}/grafana/"
             serve_from_sub_path: true
 
-- name: Deploy Kube Prometheus Stack resources
+- name: Deploy Prometheus resources
   kubernetes.core.k8s:
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
@@ -34,6 +34,11 @@
     - prometheus/redirect_middleware.yaml
     - prometheus/stripprefix_middleware.yaml
     - prometheus/route.yaml
-  vars:
-    name: monitoring
-    namespace: monitoring
+
+- name: Deploy Grafana resources
+  kubernetes.core.k8s:
+    definition: "{{ lookup('ansible.builtin.template', item) }}"
+    wait: true
+  with_items:
+    - grafana/stripprefix_middleware.yaml
+    - grafana/route.yaml

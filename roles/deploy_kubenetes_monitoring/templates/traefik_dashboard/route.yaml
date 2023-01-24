@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-route
-  namespace: {{ namespace }}
+  namespace: {{ k8s_namespace }}
 spec:
   entryPoints:
     - web
@@ -12,10 +12,10 @@ spec:
       middlewares:
         - name: {{ auth_middelware_name }}
           namespace: {{ auth_middelware_namespace }}
-        - name: {{ name }}-traefik-redirect
-          namespace: {{ namespace }}
-        - name: {{ name }}-traefik-stripprefix
-          namespace: {{ namespace }}
+        - name: {{ k8s_name }}-traefik-redirect
+          namespace: {{ k8s_namespace }}
+        - name: {{ k8s_name }}-traefik-stripprefix
+          namespace: {{ k8s_namespace }}
       services:
         - kind: Service
           name: traefik

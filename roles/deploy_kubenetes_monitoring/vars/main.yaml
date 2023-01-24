@@ -1,0 +1,3 @@
+k8s_name: monitoring
+k8s_namespace: monitoring
+jvm_micrometer_dashboard: "{{ lookup('ansible.builtin.file', 'jvm-micrometer_rev1.json') | from_json }}"

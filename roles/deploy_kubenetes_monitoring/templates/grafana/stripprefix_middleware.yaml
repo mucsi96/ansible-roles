@@ -1,8 +1,8 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ name }}-grafana-stripprefix
-  namespace: {{ namespace }}
+  name: {{ k8s_name }}-grafana-stripprefix
+  namespace: {{ k8s_namespace }}
 spec:
   stripPrefix:
     prefixes:

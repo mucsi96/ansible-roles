@@ -4,7 +4,7 @@ auth_middelware_name: auth
 auth_middelware_namespace: authelia
 hostname: "{{ subdomain }}.{{ public_domainname }}"
 db_name: ansible-roles
-db_host: postgres
+db_host: postgres-db
 db_port: 5432
 db_username: "{{ lookup('ansible.builtin.password', '/dev/null length=12 chars=ascii_lowercase', seed='{{ inventory_hostname }}-db-username') }}"
 db_password: "{{ lookup('ansible.builtin.password', '/dev/null length=20', seed='{{ inventory_hostname }}-db-password') }}"

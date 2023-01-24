@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ k8s_name }}-spring-boot
+  namespace: {{ k8s_namespace }}
+spec:
+  endpoints:
+    - port: actuator
+      path: /actuator/prometheus
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      scrape: spring-boot

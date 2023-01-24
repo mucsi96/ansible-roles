@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: prometheus-route
-  namespace: {{ namespace }}
+  namespace: {{ k8s_namespace }}
 spec:
   entryPoints:
     - web
@@ -12,12 +12,12 @@ spec:
       middlewares:
         - name: {{ auth_middelware_name }}
           namespace: {{ auth_middelware_namespace }}
-        - name: {{ name }}-prometheus-redirect
-          namespace: {{ namespace }}
-        - name: {{ name }}-prometheus-stripprefix
-          namespace: {{ namespace }}
+        - name: {{ k8s_name }}-prometheus-redirect
+          namespace: {{ k8s_namespace }}
+        - name: {{ k8s_name }}-prometheus-stripprefix
+          namespace: {{ k8s_namespace }}
       services:
         - kind: Service
           name: kube-prometheus-stack-prometheus
-          namespace: {{ namespace }}
+          namespace: {{ k8s_namespace }}
           port: http-web

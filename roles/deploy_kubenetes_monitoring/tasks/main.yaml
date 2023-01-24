@@ -1,11 +1,14 @@
-- name: Create monitoring namespace
+- name: Create {{ k8s_namespace }} namespace
   kubernetes.core.k8s:
     state: present
     kind: namespace
-    name: monitoring
+    name: "{{ k8s_namespace }}"
 
 - name: Deploy Traefik dashboard
   ansible.builtin.import_tasks: traefik_dashboard.yaml
+
+- name: Deploy Spring Boot monitoring
+  ansible.builtin.import_tasks: spring_boot_monitoring.yaml
 
 - name: Deploy Kube Prometheus Stack
   ansible.builtin.import_tasks: kube_prometheus_stack.yaml
