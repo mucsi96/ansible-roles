@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency: 
+  group: any
+  cancel-in-progress: true
+
 jobs:
   build-docker-images:
     runs-on: ubuntu-latest
