@@ -6,7 +6,5 @@ metadata:
   labels:
     grafana_dashboard: "1"
 data:
-  jvm-micrometer_rev1.json: |-
-{% filter indent(width=4) %}
-    {{ jvm_micrometer_dashboard | to_nice_json(indent=2) }}
-{% endfilter %}
+  jvm-micrometer_rev1.json: |
+    {{ jvm_micrometer_dashboard | to_nice_json(indent=2) | indent(4) }}
