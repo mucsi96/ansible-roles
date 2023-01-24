@@ -7,9 +7,6 @@
 - name: Deploy Traefik dashboard
   ansible.builtin.import_tasks: traefik_dashboard.yaml
 
-- name: Deploy Spring Boot monitoring
-  ansible.builtin.import_tasks: spring_boot_monitoring.yaml
-
 - name: Deploy Kube Prometheus Stack
   ansible.builtin.import_tasks: kube_prometheus_stack.yaml
 
@@ -18,3 +15,6 @@
 
 - name: Deploy Kubernetes Dashboard
   ansible.builtin.import_tasks: kubernetes_dashboard.yaml
+  
+- name: Deploy Spring Boot monitoring
+  ansible.builtin.import_tasks: spring_boot_monitoring.yaml
