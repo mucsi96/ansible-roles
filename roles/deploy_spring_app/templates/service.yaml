@@ -4,7 +4,7 @@ metadata:
   name: {{ k8s_name }}
   namespace: {{ k8s_namespace }}
   labels:
-    scrape: "spring-boot"
+    app: {{ k8s_name }}
 spec:
   ports:
     - port: {{ app_port }}

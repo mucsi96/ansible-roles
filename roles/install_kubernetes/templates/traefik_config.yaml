@@ -4,6 +4,8 @@ metadata:
   name: traefik
   namespace: kube-system
 spec:
+  # https://artifacthub.io/packages/helm/traefik/traefik/20.3.1
+  # additionalArguments: https://doc.traefik.io/traefik/reference/static-configuration/cli/
   valuesContent: |-
     providers:
       kubernetesCRD:
@@ -11,5 +13,5 @@ spec:
     ports:
       traefik:
         expose: true
-    additionalArguments:
+    additionalArguments: 
       - --entryPoints.web.forwardedHeaders.insecure
