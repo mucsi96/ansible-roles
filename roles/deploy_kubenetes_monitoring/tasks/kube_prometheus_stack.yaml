@@ -9,6 +9,7 @@
     release_values:
       prometheus:
         prometheusSpec:
+          podMonitorSelectorNilUsesHelmValues: false
           serviceMonitorSelectorNilUsesHelmValues: false
 
       grafana:
