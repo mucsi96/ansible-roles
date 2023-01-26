@@ -8,9 +8,9 @@
     - name: Deploy K8S monitoring
       ansible.builtin.include_role:
         name: deploy_kubenetes_monitoring
-    - name: Test Prometheus
+    - name: Test
       ansible.builtin.script:
-        cmd: "{{ inventory_dir }}/tests/prometheus.py"
+        cmd: "{{ inventory_dir }}/tests/{{ item }}"
         chdir: "{{ inventory_dir }}/tests"
       environment:
         HOSTNAME: "{{ hostname }}"
@@ -18,13 +18,9 @@
         PASSWORD: "{{ password }}"
       delegate_to: localhost
       changed_when: false
-    - name: Test Grafana
-      ansible.builtin.script:
-        cmd: "{{ inventory_dir }}/tests/grafana.py"
-        chdir: "{{ inventory_dir }}/tests"
-      environment:
-        HOSTNAME: "{{ hostname }}"
-        USERNAME: "{{ username }}"
-        PASSWORD: "{{ password }}"
-      delegate_to: localhost
-      changed_when: false
+      with_items:
+        - dashboard.py
+        - traefik.py
+        - prometheus.py
+        - grafana.py
+        - grafana_traefik.py
