@@ -29,14 +29,10 @@
       vars:
         image: mucsi96/ansible-roles-demo-app-client:3
         base_path: /demo
-    - name: Install test requirements
-      ansible.builtin.pip:
-        name:
-          - selenium == 4.7.2
-      delegate_to: localhost
     - name: Test
       ansible.builtin.script:
-        cmd: ../demo_app/test.py
+        cmd: "{{ inventory_dir }}/tests/demo_app.py"
+        chdir: "{{ inventory_dir }}/tests"
       environment:
         HOSTNAME: "{{ hostname }}"
         USERNAME: "{{ username }}"

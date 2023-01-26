@@ -4,3 +4,4 @@
     wait: true
   with_items:
     - traefik/pod_monitor.yaml
+    - traefik/grafana_dashboard.yaml
