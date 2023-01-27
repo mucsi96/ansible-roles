@@ -2,14 +2,7 @@
   kubernetes.core.k8s:
     state: present
     kind: namespace
-    name: cloudflare-tunnel
-- name: Get checksums
-  ansible.builtin.set_fact:
-    secret_checksum: "{{ lookup('ansible.builtin.template', 'secret.yaml') | checksum }}"
-    config_map_checksum: "{{ lookup('ansible.builtin.template', 'config-map.yaml') | checksum }}"
-  vars:
-    name: cloudflared
-    namespace: cloudflare-tunnel
+    name: "{{ k8s_namespace }}"
 - name: Add deployment and service
   kubernetes.core.k8s:
     state: present
@@ -19,6 +12,3 @@
     - config-map.yaml
     - secret.yaml
     - deployment.yaml
-  vars:
-    name: cloudflared
-    namespace: cloudflare-tunnel

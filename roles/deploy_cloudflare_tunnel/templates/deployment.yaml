@@ -1,22 +1,22 @@
 Kubernetes apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ name }}
-  namespace: {{ namespace }}
+  name: {{ k8s_name }}
+  namespace: {{ k8s_namespace }}
 spec:
   selector:
     matchLabels:
-      app: {{ name }}
+      app: {{ k8s_name }}
   template:
     metadata:
       labels:
-        app: {{ name }}
+        app: {{ k8s_name }}
       annotations:
         checksum/secret: {{ secret_checksum }}
         checksum/config-map: {{ config_map_checksum }}
     spec:
       containers:
-        - name: {{ name }}
+        - name: {{ k8s_name }}
           image: cloudflare/cloudflared:latest
           args:
             - tunnel
@@ -52,12 +52,12 @@ spec:
       volumes:
         - name: cloudflared-config
           configMap:
-            name: {{ name }}
+            name: {{ k8s_name }}
             defaultMode: 420
             optional: false
         - name: cloudflared-credentials
           secret:
-            secretName: {{ name }}
+            secretName: {{ k8s_name }}
             defaultMode: 420
             optional: false
 
