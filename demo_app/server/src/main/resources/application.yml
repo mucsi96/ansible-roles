@@ -1,10 +1,10 @@
 app:
-  message: ${env.MESSAGE}
+  message: ${MESSAGE}
 server:
   shutdown: graceful
 management:
   server:
-    port: ${env.SPRING_ACTUATOR_PORT}
+    port: ${SPRING_ACTUATOR_PORT}
   endpoints:
     web:
       exposure:
@@ -17,9 +17,9 @@ management:
       enabled: true
 spring:
   datasource:
-    url: jdbc:postgresql://${env.POSTGRES_HOSTNAME}:${env.POSTGRES_PORT}/${env.POSTGRES_DB}
-    username: ${env.POSTGRES_USER}
-    password: ${env.POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOSTNAME}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -30,9 +30,9 @@ spring:
   boot:
     admin:
       client:
-        url: http://${env.SPRING_ADMIN_SERVER_HOST}:${env.SPRING_ADMIN_SERVER_PORT}
+        url: http://${SPRING_ADMIN_SERVER_HOST}:${SPRING_ADMIN_SERVER_PORT}
         instance:
           name: spring-boot-demo
-          service-base-url: http://${env.K8S_POD_IP}:8080
-          management-base-url: http://${env.K8S_POD_IP}:${env.SPRING_ACTUATOR_PORT}
+          service-base-url: http://${K8S_POD_IP}:8080
+          management-base-url: http://${K8S_POD_IP}:${SPRING_ACTUATOR_PORT}
         auto-deregistration: true
