@@ -2,4 +2,3 @@ k8s_name: spring-app
 app_env: {}
 app_port: 8080
 spring_actuator_port: 8082
-spring_admin_server_host: "{{ spring_admin_server_name }}.{{ spring_admin_server_namespace }}"

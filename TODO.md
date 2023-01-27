@@ -2,5 +2,4 @@
 - add spring adming to monitoring
 - add spring adming to dev container
 - drop dot env in favor of dev container environment
-- split defaults intor vars and defaults
 - make all roles idempotenty
