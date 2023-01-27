@@ -24,3 +24,4 @@
         - prometheus.py
         - grafana.py
         - grafana_traefik.py
+        - grafana_jvm.py

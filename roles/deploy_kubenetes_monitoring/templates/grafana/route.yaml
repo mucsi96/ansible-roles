@@ -14,6 +14,8 @@ spec:
           namespace: {{ auth_middelware_namespace }}
         - name: {{ k8s_name }}-grafana-stripprefix
           namespace: {{ k8s_namespace }}
+        - name: {{ k8s_name }}-grafana-auth
+          namespace: {{ k8s_namespace }}
       services:
         - kind: Service
           name: kube-prometheus-stack-grafana

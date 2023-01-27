@@ -24,8 +24,12 @@
             version: 1
 
         grafana.ini:
-          auth.anonymous:
+          auth.proxy:
             enabled: true
+            header_name: X-WEBAUTH-USER
+            header_property: username
+            auto_sign_up: true
+
           server:
             domain: "{{ hostname }}"
             root_url: "https://{{ hostname }}/grafana/"
@@ -46,4 +50,5 @@
     wait: true
   with_items:
     - grafana/stripprefix_middleware.yaml
+    - grafana/auth_middleware.yaml
     - grafana/route.yaml

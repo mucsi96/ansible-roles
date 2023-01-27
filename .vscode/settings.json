@@ -12,5 +12,10 @@
       "password": "postgres"
     }
   ],
-  "python.autoComplete.extraPaths": ["./tests"],
+  "python.autoComplete.extraPaths": [
+    "./tests"
+  ],
+  "python.analysis.extraPaths": [
+    "./tests"
+  ],
 }
