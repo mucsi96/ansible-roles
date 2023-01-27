@@ -21,3 +21,6 @@
   
 - name: Deploy Spring Boot monitoring
   ansible.builtin.import_tasks: spring_boot_monitoring.yaml
+
+- name: Deploy Nginx monitoring
+  ansible.builtin.import_tasks: nginx_monitoring.yaml

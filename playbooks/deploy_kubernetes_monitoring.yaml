@@ -25,3 +25,4 @@
         - grafana.py
         - grafana_traefik.py
         - grafana_jvm.py
+        - grafana_nginx.py

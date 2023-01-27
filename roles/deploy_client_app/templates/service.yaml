@@ -4,7 +4,7 @@ metadata:
   name: {{ k8s_name }}
   namespace: {{ k8s_namespace }}
   labels:
-    scrape: "nginx"
+    app: {{ k8s_name }}
 spec:
   ports:
     - port: {{ app_port }}
