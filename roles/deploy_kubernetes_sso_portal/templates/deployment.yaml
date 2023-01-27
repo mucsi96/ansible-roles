@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ name }}
-  namespace: {{ namespace }}
+  name: {{ k8s_name }}
+  namespace: {{ k8s_namespace }}
   labels:
-    app: {{ name }}
+    app: {{ k8s_name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ name }}
+      app: {{ k8s_name }}
   template:
     metadata:
       labels:
-        app: {{ name }}
+        app: {{ k8s_name }}
       annotations:
         checksum/secret: {{ secret_checksum }}  
     spec:
       enableServiceLinks: false
       containers:
-        - name: {{ name }}
+        - name: {{ k8s_name }}
           image: authelia/authelia:4.30.4
           volumeMounts:
             - name: config
@@ -31,4 +31,4 @@ spec:
       volumes:
         - name: config
           secret:
-            secretName: {{ name }}
+            secretName: {{ k8s_name }}
