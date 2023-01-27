@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: {{ k8s_name }}
   namespace: {{ k8s_namespace }}
+  labels:
+    app: {{ k8s_name }}
 spec:
   selector:
     app: {{ k8s_name }}
@@ -15,4 +17,3 @@ spec:
       targetPort: metrics
       protocol: TCP
       name: metrics
-  clusterIP: None

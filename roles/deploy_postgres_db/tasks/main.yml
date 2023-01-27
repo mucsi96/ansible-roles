@@ -16,4 +16,5 @@
     - secret.yaml
     - deployment.yaml
     - service.yaml
+    - service_monitor.yaml
 

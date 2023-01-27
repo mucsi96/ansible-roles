@@ -8,6 +8,8 @@ with get_browser() as browser:
     find_element_by_text(
         browser, 'podMonitor/monitoring/traefik-service-monitor/0 (1/1 up)')
     find_element_by_text(
-        browser, 'serviceMonitor/ansible-roles/client-app/0 (1/1 up)')
+        browser, 'serviceMonitor/ansible-roles/postgres-db/0 (1/1 up)')
     find_element_by_text(
         browser, 'serviceMonitor/ansible-roles/spring-app/0 (1/1 up)')
+    find_element_by_text(
+        browser, 'serviceMonitor/ansible-roles/client-app/0 (1/1 up)')

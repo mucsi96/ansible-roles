@@ -24,3 +24,9 @@
 
 - name: Deploy Nginx monitoring
   ansible.builtin.import_tasks: nginx_monitoring.yaml
+
+- name: Deploy Postgres monitoring
+  ansible.builtin.import_tasks: postgres_monitoring.yaml
+
+- name: Deploy logs monitoring
+  ansible.builtin.import_tasks: logs.yaml

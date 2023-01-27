@@ -2,7 +2,6 @@
 - add spring adming to monitoring
 - add spring adming to dev container
 - drop dot env in favor of dev container environment
-- fix monitoring
 - use default, drop name and namespace in sso
 - use default, drop name and namespace in tunnel
 - split defaults intor vars and defaults
