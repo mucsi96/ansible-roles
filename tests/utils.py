@@ -16,17 +16,10 @@ reports_directory = current_directory / "../reports"
 rmtree(reports_directory, ignore_errors=True)
 makedirs(reports_directory, exist_ok=True)
 
-def read_utf8_file(file_path: str):
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            return file.read()
-    except:
-        print("Error reading file at", file_path)
-
 def read_file(file_path: str):
     try:
         with open(file_path, 'rb') as file:
-            return file.read()
+            return file.read().strip()
     except:
         print("Error reading file at", file_path)
 
@@ -63,7 +56,7 @@ def find_all_elements_by_text(browser: WebDriver, text):
 def navigate_and_authenticate(browser: WebDriver, url: str):
     vault_secret = read_file(current_directory / '../.ansible/vault_key')
     vault = VaultLib([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret))])
-    vault_text = read_utf8_file(current_directory / '../vars/vault.yaml')
+    vault_text = read_file(current_directory / '../vars/vault.yaml')
     data = safe_load(vault.decrypt(vault_text))
     public_domainname = data['public_domainname']
     username = data['username']
