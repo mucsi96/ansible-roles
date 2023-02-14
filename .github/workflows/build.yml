@@ -20,7 +20,7 @@ jobs:
       - name: Get Ansible Vault key
         run: |
           mkdir .ansible
-          echo --no-newline "${{ secrets.ANSIBLE_VAULT_KEY }}" > .ansible/vault_key
+          echo --no-newline ${{ secrets.ANSIBLE_VAULT_KEY }} > .ansible/vault_key
 
       - name: Build Docker image
         run: ansible-playbook playbooks/build_docker_images.yaml
