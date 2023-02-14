@@ -48,7 +48,7 @@ jobs:
         run: brew install ansible 
 
       - name: Install Python requirements
-        run: pip3 install selenium==4.7.2 pytest==7.2.1
+        run: pip3 install ansible==7.1.0 selenium==4.7.2 pytest==7.2.1
 
       - name: Show Ansible version
         run: ansible --version
