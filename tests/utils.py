@@ -23,6 +23,13 @@ def read_utf8_file(file_path: str):
     except:
         print("Error reading file at", file_path)
 
+def read_file(file_path: str):
+    try:
+        with open(file_path, 'rb') as file:
+            return file.read()
+    except:
+        print("Error reading file at", file_path)
+
 def take_screenshot(browser: WebDriver, test_name: str):
     browser.save_screenshot(reports_directory / f'{test_name}.png')
 
@@ -54,8 +61,8 @@ def find_all_elements_by_text(browser: WebDriver, text):
 
 
 def navigate_and_authenticate(browser: WebDriver, url: str):
-    vault_secret = read_utf8_file(current_directory / '../.ansible/vault_key')
-    vault = VaultLib([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret.encode("utf-8")))])
+    vault_secret = read_file(current_directory / '../.ansible/vault_key')
+    vault = VaultLib([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret))])
     vault_text = read_utf8_file(current_directory / '../vars/vault.yaml')
     data = safe_load(vault.decrypt(vault_text))
     public_domainname = data['public_domainname']
