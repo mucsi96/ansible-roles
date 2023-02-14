@@ -4,6 +4,9 @@
 .ansible/
 
 __pycache__
+.pytest_cache
+
+reports/
 
 ### dot env ###
 .env

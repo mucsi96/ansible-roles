@@ -1,0 +1,27 @@
+- name: Run test {{ file }}
+  ansible.builtin.script:
+    cmd: "{{ inventory_dir }}/tests/{{ file }}"
+    chdir: "{{ inventory_dir }}/tests"
+  environment:
+    HOSTNAME: "{{ hostname }}"
+    USERNAME: "{{ username }}"
+    PASSWORD: "{{ password }}"
+  delegate_to: localhost
+  changed_when: false
+  no_log: true
+  failed_when: false
+  register: test_result
+- name: Create folder for reports
+  ansible.builtin.file:
+    path: "{{ inventory_dir }}/reports"
+    state: directory
+    mode: 0777
+  delegate_to: localhost
+  when: test_result.rc != 0
+- name: Show test results for {{ file }}
+  ansible.builtin.copy:
+    content: "{{ test_result.stdout }}\n{{ test_result.stderr }}"
+    dest: "{{ inventory_dir }}/reports/{{ file }}.log"
+  delegate_to: localhost
+  when: test_result.rc != 0
+  failed_when: test_result.rc != 0

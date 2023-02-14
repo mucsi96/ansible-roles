@@ -29,13 +29,10 @@
       vars:
         image: mucsi96/ansible-roles-demo-app-client:3
         base_path: /demo
-    - name: Test
-      ansible.builtin.script:
-        cmd: "{{ inventory_dir }}/tests/demo_app.py"
-        chdir: "{{ inventory_dir }}/tests"
-      environment:
-        HOSTNAME: "{{ hostname }}"
-        USERNAME: "{{ username }}"
-        PASSWORD: "{{ password }}"
-      delegate_to: localhost
-      changed_when: false
+    # - name: Test
+    #   ansible.builtin.include_tasks:
+    #     file: run_test.yaml
+    #   vars:
+    #     file: "{{item}}"
+    #   with_items:
+    #     - demo_app.py

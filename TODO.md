@@ -1,4 +1,4 @@
-- create roles for deploying kubernetes-base https://github.com/mucsi96/kubernetes-base
 - add spring adming to monitoring
 - add spring adming to dev container
 - make all roles idempotenty
+- try sub sub domains for monitoring tools and auth and demo as main
