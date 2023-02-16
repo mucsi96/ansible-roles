@@ -30,25 +30,22 @@
             header_property: username
             auto_sign_up: true
 
-          server:
-            domain: "{{ hostname }}"
-            root_url: "https://{{ hostname }}/grafana/"
-            serve_from_sub_path: true
-
 - name: Deploy Prometheus resources
   kubernetes.core.k8s:
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
     - prometheus/redirect_middleware.yaml
-    - prometheus/stripprefix_middleware.yaml
     - prometheus/route.yaml
+  vars:
+    app_host: "prometheus.{{ hostname }}"
 
 - name: Deploy Grafana resources
   kubernetes.core.k8s:
     definition: "{{ lookup('ansible.builtin.template', item) }}"
     wait: true
   with_items:
-    - grafana/stripprefix_middleware.yaml
     - grafana/auth_middleware.yaml
     - grafana/route.yaml
+  vars:
+    app_host: "grafana.{{ hostname }}"

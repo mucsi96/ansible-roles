@@ -43,12 +43,3 @@
 - name: Set load balancer ip
   ansible.builtin.set_fact:
     load_balancer_ip: "{{ load_balancer.resources[0].status.loadBalancer.ingress[0].ip }}"
-- name: Test a request to the service.
-  ansible.builtin.uri:
-    url: http://{{ load_balancer_ip }}{{ path }}
-    return_content: true
-  register: this
-  until: this.status == 200
-  retries: 5
-  delay: 1
-  failed_when: "'Login - Authelia' not in this.content"

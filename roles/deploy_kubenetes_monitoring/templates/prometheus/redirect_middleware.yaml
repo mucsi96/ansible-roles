@@ -5,5 +5,5 @@ metadata:
   namespace: {{ k8s_namespace }}
 spec:
   redirectRegex:
-    regex: ^(.*)/prometheus(/)?$
-    replacement: https://{{ hostname }}/prometheus/graph
+    regex: https?://{{ app_host | regex_escape }}/?$
+    replacement: https://{{ app_host }}/targets

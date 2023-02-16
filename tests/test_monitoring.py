@@ -1,7 +1,7 @@
-from utils import navigate_and_authenticate, wait_for_text, find_element_by_text, find_all_elements_by_text
+from utils import navigate_and_authenticate, wait_for_text, find_element_by_text, find_all_elements_by_text, get_hostname
 
 def test_dashboard(browser):
-  navigate_and_authenticate(browser, '/dashboard')
+  navigate_and_authenticate(browser, f'https://dashboard.{get_hostname()}')
 
   wait_for_text(browser, 'Skip')
   find_element_by_text(browser, 'Skip').click()

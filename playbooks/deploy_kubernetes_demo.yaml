@@ -15,7 +15,8 @@
         name: deploy_spring_app
       vars:
         image: mucsi96/ansible-roles-demo-app-server:3
-        base_path: /demo/api
+        app_host: "demo.{{ hostname }}"
+        base_path: /api
         app_env:
           POSTGRES_DB: "{{ db_name }}"
           POSTGRES_HOSTNAME: "{{ db_host }}"
@@ -28,11 +29,4 @@
         name: deploy_client_app
       vars:
         image: mucsi96/ansible-roles-demo-app-client:3
-        base_path: /demo
-    # - name: Test
-    #   ansible.builtin.include_tasks:
-    #     file: run_test.yaml
-    #   vars:
-    #     file: "{{item}}"
-    #   with_items:
-    #     - demo_app.py
+        app_host: "demo.{{ hostname }}"

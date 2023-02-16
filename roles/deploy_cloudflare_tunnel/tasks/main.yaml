@@ -8,9 +8,9 @@
 - name: Deploy tunnel client
   ansible.builtin.import_tasks: deploy_tunnel_client.yaml
 
-- name: Test request using public hostname
+- name: Test request using hostname
   ansible.builtin.uri:
-    url: https://{{ public_hostname }}/ssoauth
+    url: https://auth.{{ hostname }}
     return_content: true
   register: this
   until: this.status == 200

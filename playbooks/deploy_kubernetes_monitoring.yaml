@@ -8,25 +8,3 @@
     - name: Deploy K8S monitoring
       ansible.builtin.include_role:
         name: deploy_kubenetes_monitoring
-    # - name: Run test
-    #   ansible.builtin.shell:
-    #     cmd: pytest monitoring.py --junitxml=../reports/monitoring.xml
-    #     chdir: "{{ inventory_dir }}/tests"
-    #   environment:
-    #     HOSTNAME: "{{ hostname }}"
-    #     USERNAME: "{{ username }}"
-    #     PASSWORD: "{{ password }}"
-    #   delegate_to: localhost
-    # - name: Test
-    #   ansible.builtin.include_tasks:
-    #     file: run_test.yaml
-    #   vars:
-    #     file: "{{item}}"
-    #   with_items:
-    #     - dashboard.py
-    #     - traefik.py
-    #     - prometheus.py
-    #     - grafana.py
-    #     - grafana_traefik.py
-    #     - grafana_jvm.py
-    #     - grafana_nginx.py

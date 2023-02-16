@@ -6,6 +6,10 @@ metadata:
 data:
   config.yaml: |-
     logDirectory: /var/log/cloudflared
-    url: http://traefik.kube-system
     tunnel: {{ tunnel_credentials.TunnelID }}
     credentials-file: /etc/cloudflared/credentials.json
+
+    ingress:
+      - hostname: '*.{{ hostname }}'
+        service: http://traefik.kube-system
+      - service: http_status:404

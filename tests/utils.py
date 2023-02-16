@@ -23,6 +23,16 @@ def read_file(file_path: str):
     except:
         print("Error reading file at", file_path)
 
+vault_secret = read_file(current_directory / '../.ansible/vault_key')
+vault = VaultLib([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret))])
+vault_text = read_file(current_directory / '../vars/vault.yaml')
+data = safe_load(vault.decrypt(vault_text))
+public_domainname = data['public_domainname']
+username = data['username']
+password = data['password']
+subdomain = getenv("SUBDOMAIN") if getenv("SUBDOMAIN") is not None else "ansible-roles"
+hostname = f'{subdomain}.{public_domainname}'
+
 def take_screenshot(browser: WebDriver, test_name: str):
     browser.save_screenshot(reports_directory / f'{test_name}.png')
 
@@ -52,24 +62,15 @@ def find_element_by_text(browser: WebDriver, text: str):
 def find_all_elements_by_text(browser: WebDriver, text):
     return browser.find_elements(By.XPATH, f'//*[contains(text(), "{text}")]')
 
+def get_hostname():
+    return hostname
 
 def navigate_and_authenticate(browser: WebDriver, url: str):
-    vault_secret = read_file(current_directory / '../.ansible/vault_key')
-    vault = VaultLib([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret))])
-    vault_text = read_file(current_directory / '../vars/vault.yaml')
-    data = safe_load(vault.decrypt(vault_text))
-    public_domainname = data['public_domainname']
-    username = data['username']
-    password = data['password']
-    subdomain = getenv("SUBDOMAIN") if getenv("SUBDOMAIN") is not None else "ansible-roles"
-    hostname = f'{subdomain}.{public_domainname}'
-
-    full_url = f'https://{hostname}{url}'
-    browser.get(full_url)
+    browser.get(url)
     wait_for_text(browser, 'Powered by Authelia')
 
     browser.find_element(By.ID, 'username-textfield').send_keys(username)
     browser.find_element(By.ID, 'password-textfield').send_keys(password)
     browser.find_element(By.ID, 'sign-in-button').click()
 
-    WebDriverWait(browser, 5).until(expected_conditions.url_matches(full_url))
+    WebDriverWait(browser, 5).until(expected_conditions.url_matches(url))

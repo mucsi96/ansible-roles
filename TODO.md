@@ -1,4 +1,8 @@
 - add spring adming to monitoring
 - add spring adming to dev container
 - make all roles idempotenty
-- try sub sub domains for monitoring tools and auth and demo as main
+- port all tests to pytest
+- create containers and push with a python script
+- hoist requirements to root and reuse them in CI
+- Get rid of snap
+- Add let's encypt instead of Cloudflare Total TLS

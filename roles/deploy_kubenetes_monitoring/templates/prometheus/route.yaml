@@ -8,13 +8,11 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: PathPrefix(`/prometheus`)
+      match: Host(`{{ app_host }}`)
       middlewares:
         - name: {{ auth_middelware_name }}
           namespace: {{ auth_middelware_namespace }}
         - name: {{ k8s_name }}-prometheus-redirect
-          namespace: {{ k8s_namespace }}
-        - name: {{ k8s_name }}-prometheus-stripprefix
           namespace: {{ k8s_namespace }}
       services:
         - kind: Service
