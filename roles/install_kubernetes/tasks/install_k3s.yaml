@@ -6,9 +6,8 @@
     mode: a+x
 - name: Execute k3s_install.sh
   become: true
-  ansible.builtin.shell: ./k3s_install.sh >> ./k3s_install_log.txt
+  ansible.builtin.shell: ./k3s_install.sh
   args:
     chdir: "~"
-    creates: k3s_install_log.txt
   environment:
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
