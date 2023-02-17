@@ -36,7 +36,7 @@
   when: create_tunnel or not tunnel_credentials
 - name: Setup tunnel DNS entry
   ansible.builtin.shell:
-    cmd: cloudflared tunnel route dns --overwrite-dns {{ tunnel_name }} *.{{ public_domainname }}
+    cmd: cloudflared tunnel route dns --overwrite-dns {{ tunnel_name }} *.{{ hostname }}
   when: create_tunnel or not tunnel_credentials
 - name: Remove certificates
   ansible.builtin.file:
