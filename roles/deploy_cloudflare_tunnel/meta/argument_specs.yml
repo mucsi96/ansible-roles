@@ -5,7 +5,7 @@ argument_specs:
       cloudflare_cert:
         type: str
         required: true
-      public_domainname:
+      hostname:
         type: str
         required: true
       subdomain:

@@ -5,14 +5,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from os import getenv, makedirs
 from selenium.webdriver.remote.webdriver import WebDriver
-from ansible.parsing.vault import VaultLib, VaultSecret
+from ansible.parsing.vault import VaultSecret
 from ansible.constants import DEFAULT_VAULT_ID_MATCH
+from ansible.parsing.dataloader import DataLoader
 from pathlib import Path
-from yaml import safe_load
 from shutil import rmtree
 
-current_directory = Path(__file__).parent
-reports_directory = current_directory / "../reports"
+root_directory = Path(__file__).parent.parent
+reports_directory = root_directory / "reports"
 rmtree(reports_directory, ignore_errors=True)
 makedirs(reports_directory, exist_ok=True)
 
@@ -23,10 +23,10 @@ def read_file(file_path: str):
     except:
         print("Error reading file at", file_path)
 
-vault_secret = read_file(current_directory / '../.ansible/vault_key')
-vault = VaultLib([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret))])
-vault_text = read_file(current_directory / '../vars/vault.yaml')
-data = safe_load(vault.decrypt(vault_text))
+vault_secret = read_file(root_directory / '.ansible/vault_key')
+loader = DataLoader()
+loader.set_vault_secrets([(DEFAULT_VAULT_ID_MATCH, VaultSecret(vault_secret))])
+data = loader.load_from_file(str(root_directory / 'vars/vault.yaml'))
 public_domainname = data['public_domainname']
 username = data['username']
 password = data['password']
