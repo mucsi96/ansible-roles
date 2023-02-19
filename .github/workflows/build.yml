@@ -77,10 +77,12 @@ jobs:
       - name: Test
         env:
           SUBDOMAIN: ansible-roles-ci
-        run: pytest
-
+        run: pytest --junitxml=junit/test-results.xml
       - name: Upload test artifacts
         uses: actions/upload-artifact@v3
+        if: ${{ always() }}
         with:
           name: Test Report
-          path: reports
+          path: |
+            reports
+            junit/test-results.xml
