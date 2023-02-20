@@ -1,32 +1,26 @@
 - name: Download Helm
-  become: true
   ansible.builtin.get_url:
     url: https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz
-    dest: ~/helm.tar.gz
+    dest: /tmp/helm.tar.gz
     mode: u=rw,go=r
+  delegate_to: localhost
 - name: create Helm dir
-  become: true
   file:
     state: directory
-    owner: root
-    group: root
     mode: 'u=rwx,go=rx'
-    dest: ~/helm
+    dest: /tmp/helm-dir
+  delegate_to: localhost
 - name: Extract Helm
-  become: true
   ansible.builtin.unarchive:
-    src: ~/helm.tar.gz
-    dest: ~/helm
+    src: /tmp/helm.tar.gz
+    dest: /tmp/helm-dir
     extra_opts:
       - '--strip-components=1'
-    remote_src: true
-    creates: ~/helm/helm
+    creates: /tmp/helm-dir/helm
+  delegate_to: localhost
 - name: create Helm link
   become: true
-  file:
-    src: ~/helm/helm
+  ansible.builtin.copy:
+    src: /tmp/helm-dir/helm
     dest: /usr/local/bin/helm
-    state: link
-    owner: root
-    group: root
     mode: 'u=rwx,go=rx'
