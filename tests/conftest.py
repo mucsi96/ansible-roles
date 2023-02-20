@@ -21,4 +21,4 @@ def test_failed_check(request):
     yield
     if hasattr(request.node, 'failure_report'):
         driver = request.node.funcargs['browser']
-        take_screenshot(driver, f'{request.path.stem}::{request.node.name}')
+        take_screenshot(driver, f'{request.path.stem}.{request.node.name}')
