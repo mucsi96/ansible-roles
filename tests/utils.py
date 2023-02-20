@@ -46,6 +46,7 @@ def get_browser():
     options.add_argument('--window-size=1920,1080')
     driver = webdriver.Chrome(options=options)
     driver.delete_all_cookies()
+    authenticate(driver)
     return driver
 
 
@@ -65,12 +66,12 @@ def find_all_elements_by_text(browser: WebDriver, text):
 def get_hostname():
     return hostname
 
-def navigate_and_authenticate(browser: WebDriver, url: str):
-    browser.get(url)
+def authenticate(browser: WebDriver):
+    browser.get(f'https://auth.{get_hostname()}')
     wait_for_text(browser, 'Powered by Authelia')
 
     browser.find_element(By.ID, 'username-textfield').send_keys(username)
     browser.find_element(By.ID, 'password-textfield').send_keys(password)
     browser.find_element(By.ID, 'sign-in-button').click()
 
-    WebDriverWait(browser, 5).until(expected_conditions.url_matches(url))
+    wait_for_text(browser, 'Authenticated')
