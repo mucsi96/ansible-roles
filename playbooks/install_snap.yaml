@@ -1,4 +1,0 @@
-- name: Install snap
-  hosts: cluster
-  roles:
-    - role: install_snap

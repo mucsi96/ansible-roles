@@ -1,4 +1,0 @@
-- name: refresh snap core
-  become: true
-  ansible.builtin.command:
-    cmd: snap refresh core

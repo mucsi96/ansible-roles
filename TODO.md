@@ -2,5 +2,4 @@
 - add spring adming to dev container
 - make all roles idempotenty
 - create containers and push with a python script
-- Get rid of snap
 - Add let's encypt instead of Cloudflare Total TLS

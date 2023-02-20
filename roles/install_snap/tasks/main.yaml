@@ -1,7 +1,0 @@
-- name: Check internet connection
-  ansible.builtin.include_role:
-    name: check_internet_connection
-
-- name: Install snap for RedHat family
-  ansible.builtin.import_tasks: red_hat.yaml
-  when: ansible_os_family == 'RedHat'
