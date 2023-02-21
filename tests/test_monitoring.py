@@ -15,20 +15,20 @@ def test_dashboard(browser):
   find_element_by_text(browser, 'Skip').click()
 
   wait_for_text(browser, 'CPU Usage (cores)')
-  find_element_by_text(browser, 'authelia')
-  find_all_elements_by_text(browser, 'Running')
+  wait_for_text(browser, 'client-app')
+  wait_for_text(browser, 'Running')
 
 def test_prometheus(browser):
   browser.get(f'https://prometheus.{get_hostname()}')
 
   wait_for_text(browser, 'Scrape Duration')
-  find_element_by_text(
+  wait_for_text(
       browser, 'podMonitor/monitoring/traefik-service-monitor/0 (1/1 up)')
-  find_element_by_text(
+  wait_for_text(
       browser, 'serviceMonitor/ansible-roles/postgres-db/0 (1/1 up)')
-  find_element_by_text(
+  wait_for_text(
       browser, 'serviceMonitor/ansible-roles/spring-app/0 (1/1 up)')
-  find_element_by_text(
+  wait_for_text(
       browser, 'serviceMonitor/ansible-roles/client-app/0 (1/1 up)')
   
 def test_grafana(browser):
@@ -62,3 +62,8 @@ def test_grafana_java(browser):
   wait_for_text(browser, 'used')
   wait_for_text(browser, 'committed')
   wait_for_text(browser, 'max')
+
+def test_spring_boot_admin(browser):
+  browser.get(f'https://spring.{get_hostname()}')
+  wait_for_text(browser, 'spring-boot-demo')
+  wait_for_text(browser, '1 instance')
