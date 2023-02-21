@@ -44,11 +44,11 @@ jobs:
           ./configure
           sudo make install
 
-      - name: Install Ansible
-        run: brew install ansible 
+      # - name: Install Ansible
+      #   run: brew install ansible 
 
       - name: Install Python requirements
-        run: pip3 install requirements.txt
+        run: pip3 install -r requirements.txt
 
       - name: Show Ansible version
         run: ansible --version
