@@ -30,3 +30,6 @@
 
 - name: Deploy logs monitoring
   ansible.builtin.import_tasks: logs.yaml
+
+- name: Deploy Spring Boot Admin
+  ansible.builtin.import_tasks: spring_boot_admin.yaml
