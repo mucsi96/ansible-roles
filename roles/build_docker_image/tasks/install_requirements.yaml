@@ -1,5 +1,0 @@
-- name: Install requirements
-  ansible.builtin.pip:
-    name:
-      - requests == 2.28.1
-  delegate_to: localhost
