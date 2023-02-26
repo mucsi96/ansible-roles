@@ -1,3 +1,3 @@
 - make all roles idempotenty https://gist.github.com/triplepoint/1ad6c6060c0f12112403d98180bcf0b4
-- create containers and push with a python script
 - Add let's encypt instead of Cloudflare Total TLS
+- switch to angular example

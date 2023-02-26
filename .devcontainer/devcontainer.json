@@ -19,5 +19,12 @@
     }
   },
   "remoteUser": "vscode",
-  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "postCreateCommand": {
+    "install-python-requirements": "pip install -r requirements.txt",
+    "configure-docker": "sudo chown $(whoami) /var/run/docker.sock"
+  },
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
 }

@@ -17,13 +17,25 @@ RUN if ! cat /etc/group | grep -e "^pip-global:" > /dev/null 2>&1; then groupadd
     && chown :pip-global ${PIP_TARGET} \
     && ( [ ! -f "/etc/profile.d/00-restore-env.sh" ] || sed -i -e "s/export PATH=/export PATH=\/usr\/local\/pip-global:/" /etc/profile.d/00-restore-env.sh )
 
-COPY requirements.txt /tmp/pip-tmp/
-RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-    && rm -rf /tmp/pip-tmp
+# Download the Eclipse Adoptium GPG key:
+RUN mkdir -p /etc/apt/keyrings
+RUN wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
 
-# [Optional] Uncomment this section to install additional OS packages.
+# Configure the Eclipse Adoptium apt repository.
+RUN echo \
+  "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb \
+   $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+
+# Add Docker’s official GPG key
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# Configure the Docker’s official apt repository.
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends sshpass chromium chromium-driver
+    && apt-get -y install --no-install-recommends sshpass chromium chromium-driver temurin-11-jdk docker-ce-cli
 
 # Apt cleanup
 RUN apt-get autoremove -y; \
@@ -41,15 +53,6 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
 
 # Install cloudflared
 RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i cloudflared-linux-amd64.deb
-
-# Install Java
-ARG JAVA_VERSION=11.0.17-tem
-RUN su ${USERNAME} --command \
-    'curl -s "https://get.sdkman.io" | bash \
-    && source "${HOME}/.sdkman/bin/sdkman-init.sh" \
-    && sdk install java "${JAVA_VERSION}" \
-    && sdk flush archives \
-    && sdk flush temp'
 
 ENV ANSIBLE_CONFIG=${WORKSPACE_HOME}/ansible.cfg
 ENV KUBECONFIG=${WORKSPACE_HOME}/.kube/config
