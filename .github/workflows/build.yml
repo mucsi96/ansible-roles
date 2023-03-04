@@ -59,8 +59,12 @@ jobs:
       - name: Run vagrant up
         run: vagrant up
 
+      - name: Set PYTHONPATH
+        run: echo "export PYTHONPATH=${PWD}/lib:$PYTHONPATH" >> $GITHUB_ENV
+
       - name: Provision
         run: |
+          echo $PYTHONPATH
           ansible-playbook \
                 --extra-vars "subdomain=ansible-roles-ci tunnel_name=ansible-roles-ci" \
                 playbooks/enable_root_login.yaml \
