@@ -28,5 +28,5 @@
       ansible.builtin.include_role:
         name: deploy_client_app
       vars:
-        image: mucsi96/ansible-roles-demo-app-client:6
+        image: mucsi96/ansible-roles-demo-app-client:7
         app_host: "demo.{{ hostname }}"
