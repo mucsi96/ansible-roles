@@ -1,5 +1,6 @@
 - name: Create new SSH
   hosts: cluster
+  gather_facts: false
   roles:
     - role: new_ssh_user
       vars:

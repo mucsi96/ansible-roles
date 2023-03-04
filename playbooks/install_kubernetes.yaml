@@ -4,6 +4,6 @@
     - role: install_kubernetes
       vars:
         k3s_version: v1.25.3+k3s1 # https://github.com/k3s-io/k3s/releases
-        helm_version: v3.10.3 # https://github.com/helm/helm/releases
+        helm_version: v3.11.1 # https://github.com/helm/helm/releases
         local_kube_config: "{{ inventory_dir }}/.kube/config"
         kubernetes_client_version: 25.3.0 # https://github.com/kubernetes-client/python/releases

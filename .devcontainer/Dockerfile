@@ -55,7 +55,7 @@ RUN curl -sSL -o /usr/local/bin/kubectl https://dl.k8s.io/release/v1.25.3/bin/li
 # Install Helm
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 \
     && chmod 700 get_helm.sh \
-    && ./get_helm.sh --version v3.10.3
+    && ./get_helm.sh --version v3.11.1
 
 # Install cloudflared
 RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && dpkg -i cloudflared-linux-amd64.deb

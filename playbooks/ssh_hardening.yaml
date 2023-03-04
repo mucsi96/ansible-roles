@@ -1,5 +1,6 @@
 - name: SSH hardening
   hosts: cluster
+  gather_facts: false
   roles:
     - role: ssh_hardening
       vars:
