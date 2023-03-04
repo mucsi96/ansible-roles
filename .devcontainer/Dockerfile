@@ -34,8 +34,13 @@ RUN echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+# Configure NodeSource
+RUN curl -fsSL -o get_node.sh https://deb.nodesource.com/setup_18.x \
+    && chmod 700 get_node.sh \
+    && ./get_node.sh
+
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends sshpass chromium chromium-driver temurin-11-jdk docker-ce-cli
+    && apt-get -y install --no-install-recommends sshpass chromium chromium-driver temurin-11-jdk docker-ce-cli nodejs
 
 # Apt cleanup
 RUN apt-get autoremove -y; \
@@ -57,4 +62,8 @@ RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/c
 ENV ANSIBLE_CONFIG=${WORKSPACE_HOME}/ansible.cfg
 ENV KUBECONFIG=${WORKSPACE_HOME}/.kube/config
 ENV CHROME_BIN=/usr/bin/chromium
+ENV CHOKIDAR_USEPOLLING=true
 COPY .bashrc ${USER_HOME}
+
+# Install Angular CLI
+RUN sudo npm install -g @angular/cli
