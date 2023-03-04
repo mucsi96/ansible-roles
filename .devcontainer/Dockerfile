@@ -67,4 +67,4 @@ ENV CHOKIDAR_USEPOLLING=true
 COPY .bashrc ${USER_HOME}
 
 # Install Angular CLI
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli yarn
