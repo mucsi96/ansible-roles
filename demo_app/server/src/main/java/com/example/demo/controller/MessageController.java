@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
     private final MessageRepository messageRepository;
 
-    @GetMapping("/message")
+    @GetMapping(value = "/message", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getMessage() {
-        return messageRepository.findAll().get(0).getContent();
+        return "\"" + messageRepository.findAll().get(0).getContent() + "\"";
     }
 }
