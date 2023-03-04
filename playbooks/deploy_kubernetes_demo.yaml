@@ -14,7 +14,7 @@
       ansible.builtin.include_role:
         name: deploy_spring_app
       vars:
-        image: mucsi96/ansible-roles-demo-app-server:3
+        image: mucsi96/ansible-roles-demo-app-server:5
         app_host: "demo.{{ hostname }}"
         base_path: /api
         app_env:
