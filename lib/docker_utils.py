@@ -23,41 +23,41 @@ def build_and_push_img(
 
     print(f'Changes detected for {tag_prefix}. New version: {version}')
 
-    # client = from_env()
+    client = from_env()
 
-    # for build_log in client.api.build(
-    #     path=str(docker_context_path),
-    #     tag=f'{image_name}:latest',
-    #     rm=True
-    # ):
-    #     print(build_log.decode().strip())
+    for build_log in client.api.build(
+        path=str(docker_context_path),
+        tag=f'{image_name}:latest',
+        rm=True
+    ):
+        print(build_log.decode().strip())
 
-    # image = client.images.get(f'{image_name}:latest')
-    # image.tag(image_name, tag=version)
+    image = client.images.get(f'{image_name}:latest')
+    image.tag(image_name, tag=version)
 
-    # print("Docker image built.")
+    print("Docker image built.")
 
-    # for push_log in client.images.push(
-    #     repository=image_name,
-    #     tag='latest',
-    #     auth_config={
-    #         'username': docker_username,
-    #         'password': docker_password
-    #     },
-    #     stream=True
-    # ):
-    #     print(push_log.decode().strip())
+    for push_log in client.images.push(
+        repository=image_name,
+        tag='latest',
+        auth_config={
+            'username': docker_username,
+            'password': docker_password
+        },
+        stream=True
+    ):
+        print(push_log.decode().strip())
 
-    # for push_log in client.images.push(
-    #     repository=image_name,
-    #     tag=version,
-    #     auth_config={
-    #         'username': docker_username,
-    #         'password': docker_password
-    #     },
-    #     stream=True
-    # ):
-    #     print(push_log.decode().strip())
+    for push_log in client.images.push(
+        repository=image_name,
+        tag=version,
+        auth_config={
+            'username': docker_username,
+            'password': docker_password
+        },
+        stream=True
+    ):
+        print(push_log.decode().strip())
         
-    # set_version(tag_prefix=tag_prefix, version=version)
-    # print(f'Docker image pushed successfully for {tag_prefix}:{version}')
+    set_version(tag_prefix=tag_prefix, version=version)
+    print(f'Docker image pushed successfully for {tag_prefix}:{version}')
