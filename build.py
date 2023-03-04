@@ -10,8 +10,9 @@ docker_username = data['docker_username']
 docker_password = data['docker_password']
 
 build_and_push_img(
-    src=root_directory / 'demo_app/client/src',
+    src=root_directory / 'demo_app/client',
     docker_context_path=root_directory / 'demo_app/client',
+    ignore=['node_modules', 'dist'],
     tag_prefix='demo-app-client',
     image_name='mucsi96/ansible-roles-demo-app-client',
     docker_username=docker_username,

@@ -2,6 +2,7 @@ from pathlib import Path
 import subprocess
 from subprocess import STDOUT, CalledProcessError
 import re
+from typing import List
 
 def get_previous_tag(tag_prefix):
     [status, prev_tag] = subprocess.getstatusoutput(
@@ -13,10 +14,11 @@ def get_previous_tag(tag_prefix):
     return prev_tag
 
 
-def has_source_code_changed(src: Path, prev_tag: str, ignore: str):
+def has_source_code_changed(src: Path, prev_tag: str, ignore: List[str]):
+    ignore_str = ' '.join(map(lambda x: f'\':!{x}\'', ignore))
     try:
         subprocess.check_output(
-            f'git diff --quiet HEAD {prev_tag} -- . {ignore}',
+            f'git diff --quiet HEAD {prev_tag} -- . {ignore_str}',
             shell=True,
             text=True,
             stderr=STDOUT,
@@ -38,7 +40,7 @@ def get_latest_version(tag_prefix: str):
         re.sub(rf'^{tag_prefix}-', '', tags.splitlines()[-1]))
 
 
-def get_version(src: Path, tag_prefix: str, ignore: str) -> tuple[bool, int]:
+def get_version(src: Path, tag_prefix: str, ignore: List[str]) -> tuple[bool, int]:
     prev_tag = get_previous_tag(tag_prefix)
 
     if prev_tag:
