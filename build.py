@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from pathlib import Path
 from lib.docker_utils import build_and_push_img
