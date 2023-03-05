@@ -3,6 +3,10 @@
   ansible.builtin.dnf:
     name:  "*"
     state: latest
+- name: Install yum-utils to be able to use needs-restarting command
+  ansible.builtin.package:
+    name: yum-utils
+    state: present
 - name: Check if a reboot is needed
   become: true
   command: "/usr/bin/needs-restarting -r"
