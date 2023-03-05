@@ -9,7 +9,7 @@
 - name: Hash user password
   become: true
   ansible.builtin.shell:
-    cmd: "docker run authelia/authelia:latest authelia crypto hash generate argon2 --password {{ password }}"
+    cmd: "docker run authelia/authelia:latest authelia crypto hash generate argon2 --password {{ sso_password }}"
   register: this
   changed_when: false
 - name: Get user password hash
