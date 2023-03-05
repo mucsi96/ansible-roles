@@ -22,6 +22,7 @@
   ansible.builtin.shell:
     cmd: cloudflared tunnel list | grep -E  "(\s){{ tunnel_name }}(\s)"
   changed_when: false
+  failed_when: false
   register: tunnel_info
 - name: Create fact
   ansible.builtin.set_fact:
