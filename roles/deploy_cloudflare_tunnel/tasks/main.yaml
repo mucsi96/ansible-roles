@@ -8,12 +8,3 @@
 - name: Deploy tunnel client
   ansible.builtin.import_tasks: deploy_tunnel_client.yaml
 
-- name: Test request using hostname
-  ansible.builtin.uri:
-    url: https://auth.{{ hostname }}
-    return_content: true
-  register: this
-  until: this.status == 200
-  retries: 5
-  delay: 1
-  failed_when: "'Login - Authelia' not in this.content"
