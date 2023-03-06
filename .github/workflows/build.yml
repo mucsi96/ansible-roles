@@ -26,7 +26,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build Docker images
-        run: python build.py
+        run: python scripts/build.py
 
   local-ansible-deploy:
     runs-on: macos-12

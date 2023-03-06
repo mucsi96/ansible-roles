@@ -22,6 +22,10 @@ def load_vars(vault_secret_file: Path, vars_file: Path):
 
 def create_vault_key(vault_secret_file: Path):
     makedirs(path.dirname(vault_secret_file), exist_ok=True)
+
+    if path.exists(vault_secret_file):
+        raise Exception(f"The file '{vault_secret_file}' already exists.")
+
     alphabet = ascii_letters + digits + punctuation
     password = ''.join(choice(alphabet) for i in range(50))
     with open(vault_secret_file, 'w') as file:
