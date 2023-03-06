@@ -1,4 +1,4 @@
-from lib.ansible_utils import load_vars
+import sys
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -10,6 +10,11 @@ from pathlib import Path
 from shutil import rmtree
 
 root_directory = Path(__file__).parent.parent
+
+sys.path.append(root_directory)
+
+from lib.ansible_utils import load_vars
+
 reports_directory = root_directory / "reports"
 rmtree(reports_directory, ignore_errors=True)
 makedirs(reports_directory, exist_ok=True)

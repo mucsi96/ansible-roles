@@ -1,8 +1,3 @@
-import sys
-from pathlib import Path
-
-sys.path.append(Path(__file__).parent.parent)
-
 from pytest import fixture, hookimpl
 from utils import take_screenshot, get_browser
 

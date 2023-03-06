@@ -1,4 +1,4 @@
-from utils import wait_for_text, find_element_by_text, find_all_elements_by_text, get_hostname
+from utils import wait_for_text, find_element_by_text, get_hostname
 from selenium.webdriver.common.by import By
 
 def test_traefik(browser):

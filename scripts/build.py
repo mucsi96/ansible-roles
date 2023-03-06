@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
-from sys import path
+import sys
 root_directory = Path(__file__).parent.parent
 
-path.append(str(root_directory))
+sys.path.append(root_directory)
 
 from lib.docker_utils import build_and_push_img
 from lib.ansible_utils import load_vars
