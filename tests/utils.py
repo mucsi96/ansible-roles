@@ -11,7 +11,7 @@ from shutil import rmtree
 
 root_directory = Path(__file__).parent.parent
 
-sys.path.append(root_directory)
+sys.path.append(str(root_directory))
 
 from lib.ansible_utils import load_vars
 

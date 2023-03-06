@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 root_directory = Path(__file__).parent.parent
 
-sys.path.append(root_directory)
+sys.path.append(str(root_directory))
 
 from lib.docker_utils import build_and_push_img
 from lib.ansible_utils import load_vars
