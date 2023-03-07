@@ -1,24 +1,27 @@
 - name: Load k3s config
-  become: true
   ansible.builtin.slurp:
-    src: /etc/rancher/k3s/k3s.yaml
-  register: kube_config
+    src: ~/.kube/config
+  register: kube_config_raw
+
 - name: Parse k3s config
   ansible.builtin.set_fact:
-    kube_config: "{{ kube_config.content | b64decode | from_yaml }}"
+    kube_config: "{{ kube_config_raw.content | b64decode | from_yaml }}"
 
-- name: Create remote kubernetes config folder
+- name: Create local kubernetes config folder
   ansible.builtin.file:
-    path: ~/.kube
+    path: "{{ local_kube_config | dirname }}"
     state: directory
     mode: 0700
-- name: Create remote kubernetes config
+  delegate_to: 127.0.0.1
+
+- name: Create local kubernetes config
   ansible.builtin.copy:
-    dest: ~/.kube/config
+    dest: "{{ local_kube_config }}"
     content: "{{ lookup('ansible.builtin.template', 'kube_config.yml') }}"
     mode: 0600
   vars:
     certificate_authority_data: "{{ kube_config.clusters.0.cluster['certificate-authority-data'] }}"
     client_certificate_data: "{{ kube_config.users.0.user['client-certificate-data'] }}"
     client_key_data: "{{ kube_config.users.0.user['client-key-data'] }}"
-    host: 127.0.0.1
+    host: "{{ ansible_host }}"
+  delegate_to: 127.0.0.1
