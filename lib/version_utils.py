@@ -6,7 +6,7 @@ from typing import List
 
 def get_previous_tag(tag_prefix):
     [status, prev_tag] = subprocess.getstatusoutput(
-        f'git describe --tags --match={tag_prefix}-* --abbrev=0')
+        f'git describe --tags --match={tag_prefix}-[1-9]* --abbrev=0')
 
     if status:
         return None
@@ -31,7 +31,7 @@ def has_source_code_changed(src: Path, prev_tag: str, ignore: List[str]):
 
 def get_latest_version(tag_prefix: str):
     [status, tags] = subprocess.getstatusoutput(
-        f'git tag --list --sort=taggerdate {tag_prefix}-*')
+        f'git tag --list --sort=taggerdate {tag_prefix}-[1-9]*')
 
     if status:
         return None
