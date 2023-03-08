@@ -1,0 +1,1 @@
+- Install latest version for server and client automatically without the need for manual bump
