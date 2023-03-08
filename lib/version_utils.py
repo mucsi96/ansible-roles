@@ -8,7 +8,7 @@ def get_previous_tag(tag_prefix):
     [status, prev_tag] = subprocess.getstatusoutput(
         f'git describe --tags --match={tag_prefix}-[1-9]* --abbrev=0')
 
-    if status:
+    if status or not prev_tag:
         return None
 
     return prev_tag
@@ -33,7 +33,7 @@ def get_latest_version(tag_prefix: str):
     [status, tags] = subprocess.getstatusoutput(
         f'git tag --list --sort=taggerdate {tag_prefix}-[1-9]*')
 
-    if status:
+    if status or not tags:
         return None
 
     return int(
