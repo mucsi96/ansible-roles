@@ -10,4 +10,5 @@ spec:
     authResponseHeaders:
       - Remote-User
       - Remote-Group
+      - Remote-Name
       - Remote-Email

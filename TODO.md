@@ -1,1 +1,5 @@
 - Install latest version for server and client automatically without the need for manual bump
+- Update server to java 17 and spring boot 3
+- Add swagger API
+- Use .env only for secrets
+- Add Spring profiles
