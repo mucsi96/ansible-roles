@@ -10,6 +10,12 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../..:/workspaces:cached
+    environment:
+      POSTGRES_HOSTNAME: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ansible-roles
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
     env_file:
       - .env
       
@@ -23,15 +29,12 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
-    image: postgres:latest
+    image: postgres:15.2-bullseye
     restart: unless-stopped
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
     environment:
-      # NOTE: POSTGRES_DB/USER/PASSWORD should match values in app container
+      POSTGRES_DB: ansible-roles
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
 
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)

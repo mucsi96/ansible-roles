@@ -1,5 +1,7 @@
 - Install latest version for server and client automatically without the need for manual bump
-- Update server to java 17 and spring boot 3
 - Add swagger API
-- Use .env only for secrets
-- Add Spring profiles
+- Pass list of users as role args
+- Rename repo to k8s-libs
+- Move Authelia related classes to a lib here
+- Publis to ansible galaxy, pypi and maven
+- Add test for message controller

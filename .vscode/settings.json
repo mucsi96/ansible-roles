@@ -3,24 +3,19 @@
   "sqltools.connections": [
     {
       "previewLimit": 50,
-      "server": "postgresdb",
+      "server": "db",
       "port": 5432,
       "driver": "PostgreSQL",
-      "name": "postgresdb",
-      "database": "postgres",
+      "name": "ansible-roles",
+      "database": "ansible-roles",
       "username": "postgres",
       "password": "postgres"
     }
   ],
-  "python.autoComplete.extraPaths": [
-    "./tests"
-  ],
-  "python.analysis.extraPaths": [
-    "./tests"
-  ],
-  "python.testing.pytestArgs": [
-    "tests"
-  ],
+  "python.autoComplete.extraPaths": ["./tests"],
+  "python.analysis.extraPaths": ["./tests"],
+  "python.testing.pytestArgs": ["tests"],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
+  "spring-boot.ls.logfile": "./sts.log"
 }
