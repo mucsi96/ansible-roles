@@ -1,8 +1,8 @@
 - Install latest version for server and client automatically without the need for manual bump
-- Add swagger API
 - Pass list of users as role args
 - Rename repo to k8s-libs
 - Move Authelia related classes to a lib here
 - Publis to ansible galaxy, pypi and maven
 - Add test for message controller
 - Fix STS
+- Make sure all controllers and errors retuns JSON

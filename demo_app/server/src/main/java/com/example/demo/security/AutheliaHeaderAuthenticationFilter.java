@@ -1,28 +1,14 @@
 package com.example.demo.security;
 
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
-import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@Component
 public class AutheliaHeaderAuthenticationFilter extends AbstractPreAuthenticatedProcessingFilter {
 
-  public AutheliaHeaderAuthenticationFilter() {
-    this.setAuthenticationManager(authentication -> {
-
-      if (authentication.getCredentials() == null) {
-        throw new PreAuthenticatedCredentialsNotFoundException(
-            "Authelia headers not found in request.");
-      }
-
-      return new PreAuthenticatedAuthenticationToken(
-          authentication.getPrincipal(), authentication.getCredentials(),
-          authentication.getAuthorities());
-    });
-
+  public AutheliaHeaderAuthenticationFilter(AuthenticationManager authenticationManager) {
+    this.setAuthenticationManager(authenticationManager);
     this.setContinueFilterChainOnUnsuccessfulAuthentication(false);
   }
 
