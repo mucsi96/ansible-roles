@@ -1,6 +1,6 @@
 package com.example.demo.dataseed;
 
-import com.example.demo.config.MessageConfig;
+import com.example.demo.configuration.MessageConfiguration;
 import com.example.demo.model.Message;
 import com.example.demo.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MessageDataLoader implements CommandLineRunner {
-    private final MessageConfig messageConfiguration;
+    private final MessageConfiguration messageConfiguration;
     private final MessageRepository messageRepository;
 
     @Override

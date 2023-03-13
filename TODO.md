@@ -5,3 +5,4 @@
 - Move Authelia related classes to a lib here
 - Publis to ansible galaxy, pypi and maven
 - Add test for message controller
+- Fix STS
