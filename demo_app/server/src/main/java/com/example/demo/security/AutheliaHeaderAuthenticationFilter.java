@@ -32,7 +32,7 @@ public class AutheliaHeaderAuthenticationFilter extends AbstractPreAuthenticated
 
   private AutheliaUser getAutheliaUser(HttpServletRequest request) {
     String username = request.getHeader("Remote-User");
-    String groups = request.getHeader("Remote-Group");
+    String groups = request.getHeader("Remote-Groups");
     String displayName = request.getHeader("Remote-Name");
     String email = request.getHeader("Remote-Email");
 
