@@ -1,5 +1,7 @@
 package com.example.demo.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -16,8 +18,8 @@ public class MockAuthenticationManager implements AuthenticationManager {
     AutheliaUser autheliaUser = new AutheliaUser("rob", "user", "Rober White", "robert.white@mockemail.com");
 
     return new PreAuthenticatedAuthenticationToken(
-        authentication.getPrincipal(), authentication.getCredentials(),
-        autheliaUser.getAuthorities());
+        autheliaUser, "N/A",
+        List.of(() -> "ROLE_user"));
   }
 
 }

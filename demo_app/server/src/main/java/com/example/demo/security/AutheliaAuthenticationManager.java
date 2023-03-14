@@ -1,9 +1,14 @@
 package com.example.demo.security;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.stereotype.Component;
@@ -14,17 +19,17 @@ public class AutheliaAuthenticationManager implements AuthenticationManager {
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    if (authentication.getCredentials() == null) {
-      throw new PreAuthenticatedCredentialsNotFoundException(
-          "Authelia headers not found in request.");
+    Object principal = authentication.getPrincipal();
+    if (principal instanceof AutheliaUser) {
+      AutheliaUser autheliaUser = (AutheliaUser) principal;
+      List<GrantedAuthority> authorities = Stream.of(autheliaUser.getGroups().split(",")).map(group -> {
+        return (GrantedAuthority) () -> "ROLE_" + group;
+      }).collect(Collectors.toList());
+      return new PreAuthenticatedAuthenticationToken(principal, "N/A", authorities);
     }
 
-    AutheliaUser autheliaUser = (AutheliaUser) authentication.getPrincipal();
-
-    return new PreAuthenticatedAuthenticationToken(
-        authentication.getPrincipal(), authentication.getCredentials(),
-        autheliaUser.getAuthorities());
-
+    throw new PreAuthenticatedCredentialsNotFoundException(
+        "Authelia headers not found in request.");
   }
 
 }

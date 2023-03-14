@@ -16,21 +16,6 @@ public class AutheliaHeaderAuthenticationFilter extends AbstractPreAuthenticated
 
   @Override
   protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
-    AutheliaUser user = getAutheliaUser(request);
-
-    if (user == null) {
-      return "N/A";
-    }
-
-    return user;
-  }
-
-  @Override
-  protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
-    return getAutheliaUser(request);
-  }
-
-  private AutheliaUser getAutheliaUser(HttpServletRequest request) {
     String username = request.getHeader("Remote-User");
     String groups = request.getHeader("Remote-Groups");
     String displayName = request.getHeader("Remote-Name");
@@ -41,7 +26,7 @@ public class AutheliaHeaderAuthenticationFilter extends AbstractPreAuthenticated
 
     if (username == null || groups == null || displayName == null || email == null) {
       log.debug("Insuficient header data for authentication.");
-      return null;
+      return "N/A";
     }
 
     log.debug("Creating AutheliaUser...");
@@ -49,5 +34,8 @@ public class AutheliaHeaderAuthenticationFilter extends AbstractPreAuthenticated
     return new AutheliaUser(username, groups, displayName, email);
   }
 
+  @Override
+  protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
+    return "N/A";
+  }
 }
-
