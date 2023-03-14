@@ -25,6 +25,8 @@ public class SecurityConfiguration {
   SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
     http.securityMatcher(EndpointRequest.toAnyEndpoint());
     http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
+    http.csrf().disable();
+
     return http.build();
   }
 
