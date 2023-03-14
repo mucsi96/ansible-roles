@@ -1,12 +1,11 @@
 - Install latest version for server and client automatically without the need for manual bump
-- Pass list of users as role args
-- Rename repo to k8s-libs
-- Move Authelia related classes to a lib here
-- Publis to ansible galaxy, pypi and maven
+- Make sure all controllers and errors retuns JSON
 - Add test for message controller
 - Add test for health endpoint
 - Create me controller
-- Fix STS
-- Make sure all controllers and errors retuns JSON
+- Pass list of users as role args
+- Move Authelia related classes to a lib here
+- Publis to ansible galaxy, pypi and maven
 - Use buildpacks
-- Use debug logs
+- Rename repo to k8s-libs
+- Fix STS
