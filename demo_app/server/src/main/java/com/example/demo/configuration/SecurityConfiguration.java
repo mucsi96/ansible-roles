@@ -1,6 +1,7 @@
 package com.example.demo.configuration;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,13 @@ import com.example.demo.security.AutheliaHeaderAuthenticationFilter;
 public class SecurityConfiguration {
 
   @Bean
+  SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+    http.securityMatcher(EndpointRequest.toAnyEndpoint());
+    http.authorizeHttpRequests((requests) -> requests.anyRequest().permitAll());
+    return http.build();
+  }
+
+  @Bean
   SecurityFilterChain defaultSecurityFilterChain(
       HttpSecurity http,
       @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver,
@@ -36,8 +44,9 @@ public class SecurityConfiguration {
     http.logout().disable();
 
     http.addFilter(new AutheliaHeaderAuthenticationFilter(authenticationManager));
-    http.addFilterBefore(new FilterChainExceptionHandlerFilter(resolver), AbstractPreAuthenticatedProcessingFilter.class);
-    
+    http.addFilterBefore(new FilterChainExceptionHandlerFilter(resolver),
+        AbstractPreAuthenticatedProcessingFilter.class);
+
     return http.build();
   }
 }
