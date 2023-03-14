@@ -9,3 +9,4 @@
 - Fix STS
 - Make sure all controllers and errors retuns JSON
 - Use buildpacks
+- Use debug logs
