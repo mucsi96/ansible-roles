@@ -4,6 +4,7 @@
 - Move Authelia related classes to a lib here
 - Publis to ansible galaxy, pypi and maven
 - Add test for message controller
+- Add test for health endpoint
 - Create me controller
 - Fix STS
 - Make sure all controllers and errors retuns JSON
