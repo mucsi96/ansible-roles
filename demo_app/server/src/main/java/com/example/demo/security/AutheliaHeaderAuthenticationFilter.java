@@ -36,15 +36,15 @@ public class AutheliaHeaderAuthenticationFilter extends AbstractPreAuthenticated
     String displayName = request.getHeader("Remote-Name");
     String email = request.getHeader("Remote-Email");
 
-    log.info("Authenticating using AutheliaHeaderAuthenticationFilter");
-    log.info("username: {}, groups: {}, displayName: {}, email: {}", username, groups, displayName, email);
+    log.debug("Authenticating using AutheliaHeaderAuthenticationFilter");
+    log.debug("username: {}, groups: {}, displayName: {}, email: {}", username, groups, displayName, email);
 
     if (username == null || groups == null || displayName == null || email == null) {
-      log.info("Insuficient header data for authentication.");
+      log.debug("Insuficient header data for authentication.");
       return null;
     }
 
-    log.info("Creating AutheliaUser...");
+    log.debug("Creating AutheliaUser...");
 
     return new AutheliaUser(username, groups, displayName, email);
   }
