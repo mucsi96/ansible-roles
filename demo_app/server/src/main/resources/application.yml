@@ -9,8 +9,6 @@ management:
       probes:
         enabled: true
 spring:
-  jmx:
-    enabled: true
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration

@@ -72,12 +72,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		<!-- Needed for JMX-Bean Management -->
-		<dependency>
-			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
-			<version>1.7.2</version>
-		</dependency>
 	</dependencies>
 
 	<build>
