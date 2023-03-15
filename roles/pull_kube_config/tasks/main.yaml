@@ -6,6 +6,7 @@
 - name: Parse k3s config
   ansible.builtin.set_fact:
     kube_config: "{{ kube_config_raw.content | b64decode | from_yaml }}"
+    host: "{{ ansible_host }}"
 
 - name: Create local kubernetes config folder
   ansible.builtin.file:
@@ -23,5 +24,4 @@
     certificate_authority_data: "{{ kube_config.clusters.0.cluster['certificate-authority-data'] }}"
     client_certificate_data: "{{ kube_config.users.0.user['client-certificate-data'] }}"
     client_key_data: "{{ kube_config.users.0.user['client-key-data'] }}"
-    host: "{{ ansible_host }}"
   delegate_to: 127.0.0.1

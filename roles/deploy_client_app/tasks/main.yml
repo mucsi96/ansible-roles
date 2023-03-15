@@ -6,6 +6,9 @@
 - name: Get checksums
   ansible.builtin.set_fact:
     secret_checksum: "{{ lookup('ansible.builtin.template', 'secret.yaml') | checksum }}"
+- name: Get app version
+  ansible.builtin.include_role:
+    name: get_app_version
 - name: Add kubernetes resources
   kubernetes.core.k8s:
     state: present

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ k8s_name }}-spring-boot-admin
-        image: mucsi96/ansible-roles-spring-boot-admin
+        image: mucsi96/ansible-roles-spring-boot-admin:latest
         resources:
           requests:
             memory: 200Mi

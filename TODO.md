@@ -1,4 +1,3 @@
-- Install latest version for server and client automatically without the need for manual bump
 - Make sure all controllers and errors retuns JSON
 - Add test for message controller
 - Add test for health endpoint
@@ -8,4 +7,5 @@
 - Publis to ansible galaxy, pypi and maven
 - Use buildpacks
 - Rename repo to k8s-libs
+- Add authorization for monitoring endpoints https://github.com/nilskohrs/pathauth
 - Fix STS
